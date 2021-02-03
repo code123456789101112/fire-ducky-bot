@@ -8,4 +8,4 @@ module.exports = {
         await client.destroy();
         client.login(token);
     }
-}
+};

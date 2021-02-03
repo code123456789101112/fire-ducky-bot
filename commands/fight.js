@@ -63,4 +63,4 @@ module.exports = {
 
         p1turn(client, message, args, p1, p2, p1hp, p2hp);
     }
-}
+};

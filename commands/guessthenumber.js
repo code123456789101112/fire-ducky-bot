@@ -38,4 +38,4 @@ module.exports = {
         }
         guessTheNumber(client, message, args, num, guessedNum, firstTime);
     }
-}
+};

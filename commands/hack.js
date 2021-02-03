@@ -35,4 +35,4 @@ module.exports = {
         await message.channel.send(`Location found: ${locations[Math.round(Math.random() * 2)]}`);
         await message.channel.send("Totally real and not fake at all hack complete.");
     }
-}
+};

@@ -7,4 +7,4 @@ module.exports = {
         if (message.author.id !== ownerID) return message.channel.send(`Only the owner of the bot (id = ${ownerID}) can use this command.`);
         client.destroy();
     }
-}
+};

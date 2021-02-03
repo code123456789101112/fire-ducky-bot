@@ -26,4 +26,4 @@ module.exports = {
             message.author.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
         }
     }
-}
+};
