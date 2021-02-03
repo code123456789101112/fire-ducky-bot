@@ -2,7 +2,9 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: 'suggest',
-	description: 'Makes a suggestion.',
+    description: 'Makes a suggestion.',
+    usage: "suggestion",
+    cooldown: 60,
 	execute(client, message, args) {
         if (message.content.length <= 8) {
             message.channel.send("What are you suggesting?");

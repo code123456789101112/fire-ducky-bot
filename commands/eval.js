@@ -3,6 +3,7 @@ const { ownerID } = require("../config.json");
 module.exports = {
     name: "eval",
     description: "Runs bot code through Discord.",
+    usage: "code",
     execute(client, message, args) {
         function clean(text) {
             if (typeof(text) === "string")

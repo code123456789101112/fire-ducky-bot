@@ -2,6 +2,7 @@ module.exports = {
     name: "fight",
     description: "Starts a fight against the pinged user.",
     guildOnly: true,
+    usage: "user",
     execute(client, message, args) {
         const p1 = message.author;
         const p2 = message.mentions.users.first();

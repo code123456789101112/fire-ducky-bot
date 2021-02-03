@@ -5,6 +5,7 @@ module.exports = {
     name: "hack",
     description: "Hacks the pinged user. (not real)",
     guildOnly: true,
+    usage: "user",
     async execute(client, message, args) {
         const hackedUser = message.mentions.members.first();
         const hackedUsername = message.mentions.users.first().username;

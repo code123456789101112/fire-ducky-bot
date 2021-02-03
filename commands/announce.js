@@ -5,6 +5,7 @@ module.exports = {
 	description: 'Announces with embed.',
 	permissions: ["ADMINISTRATOR"],
 	guildOnly: true,
+	usage: "/ title here / description here / ping here (optional)",
 	execute(client, message, args) {
 		const announceArgs = message.content.split(" / ");
 		let ping;

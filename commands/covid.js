@@ -19,7 +19,8 @@ const chartCallback = (ChartJS) => {
 
 module.exports = {
 	name: 'covid',
-	description: 'Shows covid stats.',
+  description: 'Shows covid stats.',
+  usage: "days",
 	async execute(client, message, args) {
     return message.channel.send("This command doesn't work right now.");
     
