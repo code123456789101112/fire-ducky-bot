@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: "avatar",
     description: "Shows the user's pfp.",
-    aliases: ["av", "icon", "pfp"],
+    aliases: ["av", "icon", "pfp", "profilepicture", "profilepic"],
     usage: "user",
     execute(client, message, args) {
         if (!message.mentions.users.size) {

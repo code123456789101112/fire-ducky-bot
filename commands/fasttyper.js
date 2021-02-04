@@ -4,7 +4,7 @@ let photoPhrase = ["https://media.discordapp.net/attachments/799385516512509954/
 module.exports = {
     name: "fasttyper",
     description: "Makes a fast typer game.",
-    aliases: ["ft"],
+    aliases: ["ft", "fast", "typer", "type", "fasttype", "typefast"],
     guildOnly: true,
     execute(client, message, args) {
         const random = Math.round(Math.random() *  9);

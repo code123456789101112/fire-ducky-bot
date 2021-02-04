@@ -1,7 +1,7 @@
 module.exports = {
     name: "guessthenumber",
     description: "Starts a guess the number game.",
-    aliases: ["gtn", "guess"],
+    aliases: ["gtn", "guess", "number", "guessnumber", "numberguess"],
     guildOnly: true,
     execute(client, message, args) {
         let firstTime;
