@@ -22,8 +22,6 @@ const cooldowns = new Discord.Collection();
 client.on("guildMemberAdd", (member) => {
 	const welcomeChannel = member.guild.channels.cache.get("801125577644834913");
 	welcomeChannel.send(`Please welcome <@${member.id}> to the server!`);
-	member.send("Sorry, but this server is currently on lockdown.");
-	member.kick();
 });
 
 client.on("guildMemberRemove", (member) => {
