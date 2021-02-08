@@ -15,9 +15,7 @@ module.exports = {
         }
 
         client.on("guildMemberAdd", (member) => { 
-            if (enabled === false) {
-                return;
-            }
+            if (enabled === false) return;
             
             member.send("Sorry, but this server in currently on lockdown.");
             member.kick();
