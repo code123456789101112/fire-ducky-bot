@@ -18,6 +18,10 @@ module.exports = {
         function guessTheNumber(client, message, args, num, guessedNum, firstTime) {
             message.channel.awaitMessages(m => m.author.id == message.author.id,
                 {max: 1, time: 60000}).then(collected => {
+                    if (isNaN(collected.first().content)) {
+                        return message.channel.send("Bro that's not even a number, ending the game.");
+                    }
+                    
                     guessedNum = parseInt(collected.first().content);
 
                     if (guessedNum == num) {
