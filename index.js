@@ -22,6 +22,12 @@ const cooldowns = new Discord.Collection();
 client.on("guildMemberAdd", (member) => {
 	const welcomeChannel = member.guild.channels.cache.get("801125577644834913");
 	welcomeChannel.send(`Please welcome <@${member.id}> to the server!`);
+
+	if (member.bot) {
+		member.roles.cache.add("801149263907258449");
+	} else {
+		member.roles.cache.add("801146722717139007");
+	}
 });
 
 client.on("guildMemberRemove", (member) => {
