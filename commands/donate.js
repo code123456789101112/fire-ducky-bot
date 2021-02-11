@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: "donate",
     description: "Donate to giveaway or heist!",
-    cooldown: "3600",
+    cooldown: 10,
     execute(client, message, args) {
         let gawtype;
         let amount;
@@ -11,7 +11,7 @@ module.exports = {
         message.channel.send("Do you want to donate to a giveaway or a heist?");
         message.channel.awaitMessages(m => m.author.id == message.author.id,
             {max: 1, time: 30000}).then(collected => {
-                if (collected.first().content === "giveaway") {
+                if (collected.first().content.toLowerCase() === "giveaway") {
                     gawtype = "giveaway";
                     message.channel.send("What is your giveaway for? Explain everything including amount, time, amount of winners, etc.");
                     message.channel.awaitMessages(m => m.author.id == message.author.id,
@@ -27,7 +27,7 @@ module.exports = {
                         }).catch(() => {
                             return message.channel.send("You have not responded, cancelling donation.");
                         });
-                } else if (collected.first().content === "heist") {
+                } else if (collected.first().content.toLowerCase() === "heist") {
                     gawtype = "heist";
                     message.channel.send("How much should the heist be? It can't be too much because of limited bank space and can't be too little because then it's not fun.");
                     message.channel.awaitMessages(m => m.author.id == message.author.id,
