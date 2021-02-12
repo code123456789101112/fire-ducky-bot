@@ -24,9 +24,11 @@ client.on("guildMemberAdd", (member) => {
 	welcomeChannel.send(`Please welcome <@${member.id}> to the server!`);
 
 	if (member.bot) {
-		member.roles.cache.add("801149263907258449");
+		const role = member.guild.roles.cache.get("801149263907258449");
+		member.roles.add(role);
 	} else {
-		member.roles.cache.add("801146722717139007");
+		const role = member.guild.roles.cache.get("801146722717139007");
+		member.roles.add(role);
 	}
 });
 
