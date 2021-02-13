@@ -12,7 +12,16 @@ module.exports = {
         const user = message.mentions.users.first();
         let newBal = args[1];
 
-        if (!money[user.id]) return;
+        if (!money[user.id]) {
+            money[message.author.id] = {
+                name: message.author.tag,
+                money: 0
+            };
+            
+            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                if (err) console.log(err);
+            });
+        }
 
         money[user.id].money = parseInt(newBal);
         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
