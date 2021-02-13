@@ -3,7 +3,7 @@ const fs = require("fs");
 
 module.exports = {
     name: "beg",
-    cooldown: 25,
+    cooldown: 15,
     description: "Currency command which raises balance by random number.",
     execute(client, message, args) {
         if (!money[message.author.id]) {
