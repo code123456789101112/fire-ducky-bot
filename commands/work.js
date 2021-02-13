@@ -37,7 +37,7 @@ module.exports = {
             if (args[0] === "list") {
                 const embed = new Discord.MessageEmbed()
                     .setTitle("Jobs Available")
-                    .setDescription("1. Teacher\nThis job has a low salary and isn't that good.\n\n2. Police\nThis job has okay salary but still isn't that good.\n\nLawyer\nThis job has a pretty good salary.\n\nPresident\nThis is the best job with the best salary!.")
+                    .setDescription("1. Teacher\nThis job has a low salary and isn't that good.\n\n2. Police\nThis job has okay salary but still isn't that good.\n\n3. Lawyer\nThis job has a pretty good salary.\n\n4. President\nThis is the best job with the best salary!.")
                     .setFooter("Use =work <job name> to start working!")
                     .setColor("#ff0000")
                 return message.channel.send(embed);
