@@ -4,11 +4,11 @@ const cooldowns = require("../cooldowns.json");
 const ms = require("parse-ms");
 const job = require("../job.json");
 const Discord = require("discord.js");
+const talkedRecently = new Set();
 
 module.exports = {
     name: "work",
     description: "Currency command that can be used every hour.",
-    cooldown: 3600,
     execute(client, message, args) {
         if (!money[message.author.id]) {
             return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
@@ -18,12 +18,20 @@ module.exports = {
             if (!job[message.author.id]) {
                 return message.channel.send("You don't have a job yet, use =work list to find one");
             } else {
-                money[message.author.id].money += job[message.author.id].salary;
-                fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                    if (err) console.log(err)
-                });
-
-                return message.channel.send(`You worked as a ${job[message.author.id].job} and earned ${job[message.author.id].salary} coins.`);
+                if (talkedRecently.has(message.author.id)) {
+                    message.channel.send("Wait before getting typing this again.");
+                } else {
+                    money[message.author.id].money += job[message.author.id].salary;
+                    fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                        if (err) console.log(err)
+                    });
+                    message.channel.send(`You worked as a ${job[message.author.id].job} and earned ${job[message.author.id].salary} coins.`);
+                    
+                    talkedRecently.add(message.author.id);
+                    setTimeout(() => {
+                    talkedRecently.delete(message.author.id);
+                    }, 3600000);
+                }
             }
         } else {
             if (args[0] === "list") {
