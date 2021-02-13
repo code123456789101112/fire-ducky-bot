@@ -13,8 +13,8 @@ module.exports = {
         let newBal = args[1];
 
         if (!money[user.id]) {
-            money[message.author.id] = {
-                name: message.author.tag,
+            money[user.id] = {
+                name: user.tag,
                 money: 0
             };
             
