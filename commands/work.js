@@ -8,9 +8,8 @@ const Discord = require("discord.js");
 module.exports = {
     name: "work",
     description: "Currency command that can be used every hour.",
+    cooldown: 3600,
     execute(client, message, args) {
-        let timeout = 3600000;
-        
         if (!money[message.author.id]) {
             return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
         }
@@ -19,21 +18,6 @@ module.exports = {
             if (!job[message.author.id]) {
                 return message.channel.send("You don't have a job yet, use =work list to find one");
             } else {
-                if (!cooldowns[message.author.id].work) {
-                    cooldowns[message.author.id] = {
-                        name: message.author.tag,
-                        work: Date.now()
-                    }
-                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
-                        if (err) console.log(err);
-                    });
-                } else if (timeout - (Date.now() - cooldowns[message.author.id].work) > 0) {
-                    let time = ms(timeout - (Date.now() - cooldowns[message.author.id].work));
-                    console.log(time);
-        
-                    return message.channel.send(`You already collected your work reward! Collect again in ${time.hours}h ${time.minutes}m ${time.seconds}s`);
-                }
-                
                 money[message.author.id].money += job[message.author.id].salary;
                 fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                     if (err) console.log(err)
