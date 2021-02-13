@@ -10,7 +10,7 @@ module.exports = {
     execute(client, message, args) {
         const user = message.mentions.users.first() || message.author;
 
-        if (!money[user.id]) {
+        if (!money[user.id] && user == message.author) {
             return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
         }
 
