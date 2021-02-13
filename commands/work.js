@@ -37,7 +37,7 @@ module.exports = {
             if (args[0] === "list") {
                 const embed = new Discord.MessageEmbed()
                     .setTitle("Jobs Available")
-                    .setDescription("1. Teacher\nThis job has a low salary and isn't that good.\n\n2. Police\nThis job has okay salary but still isn't that good.")
+                    .setDescription("1. Teacher\nThis job has a low salary and isn't that good.\n\n2. Police\nThis job has okay salary but still isn't that good.\n\nLawyer\nThis job has a pretty good salary.\n\nPresident\nThis is the best job with the best salary!.")
                     .setFooter("Use =work <job name> to start working!")
                     .setColor("#ff0000")
                 return message.channel.send(embed);
@@ -67,6 +67,36 @@ module.exports = {
                 });
 
                 return message.channel.send("You now work as a police officer and earn 1,000 coins an hour! You can start working by using =work.")
+            } else if (args[0] === "lawyer") {
+                if (money[message.author.id].money < 25000) {
+                    return message.channel.send("You need 25,000 coins to be able to sign up for this job");
+                }
+                
+                job[message.author.id] = {
+                    name: message.author.tag,
+                    job: "lawyer",
+                    salary: 1000
+                };
+                fs.writeFile("./job.json", JSON.stringify(job), (err) => {
+                    if (err) console.log(err)
+                });
+
+                return message.channel.send("You now work as a lawyer and earn 5,000 coins an hour! You can start working by using =work.")
+            } else if (args[0] === "president") {
+                if (money[message.author.id].money < 25000) {
+                    return message.channel.send("You need 50,000 coins to be able to sign up for this job");
+                }
+                
+                job[message.author.id] = {
+                    name: message.author.tag,
+                    job: "president",
+                    salary: 1000
+                };
+                fs.writeFile("./job.json", JSON.stringify(job), (err) => {
+                    if (err) console.log(err)
+                });
+
+                return message.channel.send("You now work as the president and earn 10,000 coins an hour! You can start working by using =work.")
             }
         }
     }

@@ -7,7 +7,7 @@ module.exports = {
     name: "daily",
     description: "Currency command that can be used to get coins once every day.",
     execute(client, message, args) {
-        const reward = 4000;
+        const reward = 10000;
         let timeout = 86400000;
         
         if (!money[message.author.id]) {
