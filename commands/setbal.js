@@ -14,7 +14,7 @@ module.exports = {
 
         if (!money[user.id]) return;
 
-        money[user.id] = parseInt(newBal);
+        money[user.id].money = parseInt(newBal);
         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
             if (err) console.log(err);
         });
