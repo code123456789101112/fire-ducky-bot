@@ -51,7 +51,7 @@ module.exports = {
                     if (err) console.log(err)
                 });
 
-                return message.channel.send("You now work as a teacher and earn 650 coins an hour! You can start working by using =work.")
+                return message.channel.send("You now work as a teacher and earn 650 coins an hour! You can start working by using =work.");
             } else if (args[0] === "police") {
                 if (money[message.author.id].money < 10000) {
                     return message.channel.send("You need 10,000 coins to be able to sign up for this job");
@@ -66,7 +66,7 @@ module.exports = {
                     if (err) console.log(err)
                 });
 
-                return message.channel.send("You now work as a police officer and earn 1,000 coins an hour! You can start working by using =work.")
+                return message.channel.send("You now work as a police officer and earn 1,000 coins an hour! You can start working by using =work.");
             } else if (args[0] === "lawyer") {
                 if (money[message.author.id].money < 25000) {
                     return message.channel.send("You need 25,000 coins to be able to sign up for this job");
@@ -75,28 +75,28 @@ module.exports = {
                 job[message.author.id] = {
                     name: message.author.tag,
                     job: "lawyer",
-                    salary: 1000
+                    salary: 5000
                 };
                 fs.writeFile("./job.json", JSON.stringify(job), (err) => {
                     if (err) console.log(err)
                 });
 
-                return message.channel.send("You now work as a lawyer and earn 5,000 coins an hour! You can start working by using =work.")
+                return message.channel.send("You now work as a lawyer and earn 5,000 coins an hour! You can start working by using =work.");
             } else if (args[0] === "president") {
-                if (money[message.author.id].money < 25000) {
+                if (money[message.author.id].money < 50000) {
                     return message.channel.send("You need 50,000 coins to be able to sign up for this job");
                 }
                 
                 job[message.author.id] = {
                     name: message.author.tag,
                     job: "president",
-                    salary: 1000
+                    salary: 10000
                 };
                 fs.writeFile("./job.json", JSON.stringify(job), (err) => {
                     if (err) console.log(err)
                 });
 
-                return message.channel.send("You now work as the president and earn 10,000 coins an hour! You can start working by using =work.")
+                return message.channel.send("You now work as the president and earn 10,000 coins an hour! You can start working by using =work.");
             }
         }
     }
