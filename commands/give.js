@@ -25,6 +25,9 @@ module.exports = {
         }
 
         money[message.author.id].money -= parseInt(args[1]);
+        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+            if (err) console.log(err);
+        });
         money[user.id].money += parseInt(args[1]);
         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
             if (err) console.log(err);

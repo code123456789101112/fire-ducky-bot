@@ -14,11 +14,16 @@ module.exports = {
             return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
         }
 
-        if (!cooldowns[message.author.id]) {
-            cooldowns[message.author.id] = {
-                name: message.author.tag,
-                daily: Date.now()
+        if (!cooldowns[message.author.id] || !cooldowns[message.author.id].daily) {
+            if (!cooldowns[message.author.id]) {
+                cooldowns[message.author.id] = {
+                    name: message.author.tag
+                }
             }
+            if (!cooldowns[message.author.id].daily) {
+                cooldowns[message.author.id].daily = Date.now();
+            }
+            
             fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
                 if (err) console.log(err);
             });
@@ -28,7 +33,7 @@ module.exports = {
                 if (err) console.log(err);
             });
 
-            return message.channel.send("You collected your daily reward of 4,000 coins!");
+            return message.channel.send("You collected your daily reward of 10,000 coins!");
         } else {
            if (timeout - (Date.now() - cooldowns[message.author.id].daily) > 0) {
                let time = ms(timeout - (Date.now() - cooldowns[message.author.id].daily));

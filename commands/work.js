@@ -4,12 +4,13 @@ const cooldowns = require("../cooldowns.json");
 const ms = require("parse-ms");
 const job = require("../job.json");
 const Discord = require("discord.js");
-const talkedRecently = new Set();
 
 module.exports = {
     name: "work",
     description: "Currency command that can be used every hour.",
     execute(client, message, args) {
+        let timeout = 3600000;
+        
         if (!money[message.author.id]) {
             return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
         }
@@ -18,20 +19,44 @@ module.exports = {
             if (!job[message.author.id]) {
                 return message.channel.send("You don't have a job yet, use =work list to find one");
             } else {
-                if (talkedRecently.has(message.author.id)) {
-                    message.channel.send("Wait before getting typing this again.");
-                } else {
+                if (!cooldowns[message.author.id] || !cooldowns[message.author.id].work) {
+                    if (!cooldowns[message.author.id]) {
+                        cooldowns[message.author.id] = {
+                            name: message.author.tag
+                        }
+                    }
+                    if (!cooldowns[message.author.id].work) {
+                        cooldowns[message.author.id].work = Date.now();
+                    }
+                    
+                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
+                        if (err) console.log(err);
+                    });
+
                     money[message.author.id].money += job[message.author.id].salary;
                     fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                         if (err) console.log(err)
                     });
                     message.channel.send(`You worked as a ${job[message.author.id].job} and earned ${job[message.author.id].salary} coins.`);
-                    
-                    talkedRecently.add(message.author.id);
-                    setTimeout(() => {
-                    talkedRecently.delete(message.author.id);
-                    }, 3600000);
-                }
+                } else {
+                    if (timeout - (Date.now() - cooldowns[message.author.id].work) > 0) {
+                        let time = ms(timeout - (Date.now() - cooldowns[message.author.id].work));
+                        console.log(time);
+            
+                        return message.channel.send(`You already collected your work reward! Collect again in ${time.hours}h ${time.minutes}m ${time.seconds}s`);
+                    } else {
+                        money[message.author.id].money += job[message.author.id].salary;
+                        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                            if (err) console.log(err)
+                        });
+                        message.channel.send(`You worked as a ${job[message.author.id].job} and earned ${job[message.author.id].salary} coins.`);
+            
+                        cooldowns[message.author.id].work = Date.now();
+                        fs.writeFile("./cooldowns.json", JSON.stringify(money), (err) => {
+                            if (err) console.log(err);
+                        });
+                    }
+                    }
             }
         } else {
             if (args[0] === "list") {
