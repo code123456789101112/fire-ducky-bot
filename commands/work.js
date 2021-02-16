@@ -37,6 +37,10 @@ module.exports = {
                     fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                         if (err) console.log(err)
                     });
+                    money[message.author.id].bankSpace += 500;
+                    fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                        if (err) console.log(err)
+                    });
                     message.channel.send(`You worked as a ${job[message.author.id].job} and earned ${job[message.author.id].salary} coins.`);
                 } else {
                     if (timeout - (Date.now() - cooldowns[message.author.id].work) > 0) {
@@ -46,6 +50,10 @@ module.exports = {
                         return message.channel.send(`You already collected your work reward! Collect again in ${time.hours}h ${time.minutes}m ${time.seconds}s`);
                     } else {
                         money[message.author.id].money += job[message.author.id].salary;
+                        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                            if (err) console.log(err)
+                        });
+                        money[message.author.id].bankSpace += 500;
                         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                             if (err) console.log(err)
                         });

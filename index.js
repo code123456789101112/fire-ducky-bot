@@ -38,7 +38,6 @@ client.on("guildMemberRemove", (member) => {
 });
 
 client.on("message", message => {
-	if (message.author.id !== ownerID) return;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	if (message.channel.id === "801150859873746984" && message.author.id !== ownerID) return;
 

@@ -47,11 +47,11 @@ module.exports = {
                 });
 
                 cooldowns[message.author.id].daily = Date.now();
-                fs.writeFile("./cooldowns.json", JSON.stringify(money), (err) => {
+                fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
                     if (err) console.log(err);
                 });
                 
-                return message.channel.send("You collected your daily reward of 4,000 coins!");
+                return message.channel.send("You collected your daily reward of 10,000 coins!");
            }
         }
     }

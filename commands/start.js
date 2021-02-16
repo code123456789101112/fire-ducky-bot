@@ -9,7 +9,9 @@ module.exports = {
 
         money[message.author.id] = {
             name: message.author.tag,
-            money: 0
+            money: 0,
+            bank: 0,
+            bankSpace: 25000
         };
         
         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
