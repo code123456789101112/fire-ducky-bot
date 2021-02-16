@@ -63,6 +63,8 @@ module.exports = {
             fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                 if (err) console.log(err);
             });
+
+            message.channel.send(`You robbed ${user.username} of half of their balance!!`);
         } else {
             const amount = money[user.id].money;
 
@@ -74,6 +76,8 @@ module.exports = {
             fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                 if (err) console.log(err);
             });
+
+            message.channel.send(`You robbed ${user.username} of their entire balance!!`);
         }
     }
 };
