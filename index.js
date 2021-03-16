@@ -100,4 +100,4 @@ client.unabbrNum = function(num) {
 	return newNum;
 }
 
-client.login(token);
+client.login(process.env.token);
