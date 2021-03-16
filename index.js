@@ -87,4 +87,17 @@ client.on("message", message => {
 	}
 });
 
+client.unabbrNum = function(num) {
+	if (typeof num !== "string") return;
+	
+	if (num.endsWith("k")) {
+		var n = 1000;
+	} else if (num.endsWith("m")) {
+		var n = 1000000
+	} else return;
+
+	let newNum = parseInt(num.slice(0, -1)) * n;
+	return newNum;
+}
+
 client.login(token);
