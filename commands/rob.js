@@ -14,7 +14,7 @@ module.exports = {
         
         const random = Math.round(Math.random() * 10);
         const user = message.mentions.users.first();
-        let timeout = 43200000;
+        const timeout = 43200000;
 
         if (!user) return message.channel.send("You didn't mention anyone");
         else if (!money[message.author.id]) {
@@ -25,14 +25,14 @@ module.exports = {
                 money: 0,
                 bank: 0,
                 bankSpace: 25000
-            }
+            };
         }
 
         if (!cooldowns[message.author.id] || !cooldowns[message.author.id].rob) {
             if (!cooldowns[message.author.id]) {
                 cooldowns[message.author.id] = {
                     name: message.author.tag
-                }
+                };
             }
             if (!cooldowns[message.author.id].rob) {
                 cooldowns[message.author.id].rob = Date.now();
@@ -41,17 +41,15 @@ module.exports = {
             fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
                 if (err) console.log(err);
             });
-        } else {
-            if (timeout - (Date.now() - cooldowns[message.author.id].rob) > 0) {
-                let time = ms(timeout - (Date.now() - cooldowns[message.author.id].rob));
+        } else if (timeout - (Date.now() - cooldowns[message.author.id].rob) > 0) {
+                const time = ms(timeout - (Date.now() - cooldowns[message.author.id].rob));
                 console.log(time);
  
                 return message.channel.send(`You already tried to rob someone! Try again in ${time.hours}h ${time.minutes}m ${time.seconds}s`);
             }
-        }
 
         if (random <= 8) {
-            return message.channel.send(`You failed to rob ${user.username}.`)
+            return message.channel.send(`You failed to rob ${user.username}.`);
         } else if (random == 9) {
             const amount = Math.round(money[user.id].money / 2);
 

@@ -20,16 +20,16 @@ module.exports = {
             await m.delete();
         });
         await message.channel.send("Finding login info").then(async m => {
-            await m.edit(`Finding login info .`);
-            await m.edit(`Finding login info . .`);
-            await m.edit(`Finding login info . . .`);
+            await m.edit("Finding login info .");
+            await m.edit("Finding login info . .");
+            await m.edit("Finding login info . . .");
             await m.delete();
         });
         await message.channel.send(`Email: ${hackedUsername}IsAwesome@gmail.com, Password: ${hackedUsername}1234`);
         await message.channel.send("Finding login info").then(async m => {
-            await m.edit(`Finding location .`);
-            await m.edit(`Finding location . .`);
-            await m.edit(`Finding location . . .`);
+            await m.edit("Finding location .");
+            await m.edit("Finding location . .");
+            await m.edit("Finding location . . .");
             await m.delete();
         });
         await message.channel.send(`Location found: ${locations[Math.round(Math.random() * 2)]}`);

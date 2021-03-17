@@ -10,7 +10,7 @@ module.exports = {
         if (message.author.id !== ownerID) return;
 
         const user = message.mentions.users.first();
-        let newBal = args[1];
+        const newBal = args[1];
 
         if (!money[user.id]) {
             money[user.id] = {

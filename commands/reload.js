@@ -1,6 +1,6 @@
 module.exports = {
-	name: 'reload',
-	description: 'Reloads a command.',
+	name: "reload",
+	description: "Reloads a command.",
 	permissions: ["ADMINISTRATOR"],
 	usage: "command",
 	execute(client, message, args) {

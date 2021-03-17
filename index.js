@@ -1,6 +1,6 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-const { prefix, token, ownerID, botID } = require("./config.json");
+const { prefix, ownerID } = require("./config.json");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -90,14 +90,15 @@ client.on("message", message => {
 client.unabbrNum = function(num) {
 	if (typeof num !== "string") return;
 	
+	let n;
 	if (num.endsWith("k")) {
-		var n = 1000;
+		n = 1000;
 	} else if (num.endsWith("m")) {
-		var n = 1000000
+		n = 1000000;
 	} else return;
 
-	let newNum = parseInt(num.slice(0, -1)) * n;
+	const newNum = parseInt(num.slice(0, -1)) * n;
 	return newNum;
-}
+};
 
 client.login(process.env.token);

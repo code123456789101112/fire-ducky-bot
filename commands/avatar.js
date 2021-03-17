@@ -1,12 +1,10 @@
-const Discord = require("discord.js");
-
 module.exports = {
-    name: "avatar",
-    description: "Shows the user's pfp.",
-    aliases: ["av", "icon", "pfp", "profilepicture", "profilepic"],
-    usage: "user",
-    execute(client, message, args) {
-        if (!message.mentions.users.size) {
+	name: "avatar",
+	description: "Shows the user's pfp.",
+	aliases: ["av", "icon", "pfp", "profilepicture", "profilepic"],
+	usage: "user",
+	execute(client, message, args) {
+		if (!message.mentions.users.size) {
 			return message.channel.send(`Your avatar: ${message.author.displayAvatarURL({ dynamic: true })}`);
 		}
 
@@ -15,5 +13,5 @@ module.exports = {
 		});
 
 		message.channel.send(avatarList);
-    }
+	}
 };

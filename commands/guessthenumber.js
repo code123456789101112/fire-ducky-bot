@@ -15,9 +15,9 @@ module.exports = {
         let guessedNum;
         console.log(num);
 
-        function guessTheNumber(client, message, args, num, guessedNum, firstTime) {
+        function guessTheNumber() {
             message.channel.awaitMessages(m => m.author.id == message.author.id,
-                {max: 1, time: 60000}).then(collected => {
+                { max: 1, time: 60000 }).then(collected => {
                     if (isNaN(collected.first().content)) {
                         return message.channel.send("Bro that's not even a number, ending the game.");
                     }
@@ -30,16 +30,16 @@ module.exports = {
                     } else
                         if (guessedNum < num) {
                             message.channel.send(`${message.author.username} too low, guess another number.`);
-                            guessTheNumber(client, message, args, num, guessedNum, firstTime);
+                            guessTheNumber();
                         } else {
                             message.channel.send(`${message.author.username} too high, guess another number.`);
-                            guessTheNumber(client, message, args, num, guessedNum, firstTime);
+                            guessTheNumber();
                         }   
                     }).catch(() => {
                         message.reply("You have not guessed a number in the last 30 seconds, ending the game.");
                     }   
                 );     
         }
-        guessTheNumber(client, message, args, num, guessedNum, firstTime);
+        guessTheNumber();
     }
 };

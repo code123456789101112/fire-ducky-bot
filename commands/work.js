@@ -9,7 +9,7 @@ module.exports = {
     name: "work",
     description: "Currency command that can be used every hour.",
     execute(client, message, args) {
-        let timeout = 3600000;
+        const timeout = 3600000;
         
         if (!money[message.author.id]) {
             return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
@@ -18,12 +18,11 @@ module.exports = {
         if (!args[0]) {
             if (!job[message.author.id]) {
                 return message.channel.send("You don't have a job yet, use =work list to find one");
-            } else {
-                if (!cooldowns[message.author.id] || !cooldowns[message.author.id].work) {
+            } else if (!cooldowns[message.author.id] || !cooldowns[message.author.id].work) {
                     if (!cooldowns[message.author.id]) {
                         cooldowns[message.author.id] = {
                             name: message.author.tag
-                        }
+                        };
                     }
                     if (!cooldowns[message.author.id].work) {
                         cooldowns[message.author.id].work = Date.now();
@@ -35,27 +34,26 @@ module.exports = {
 
                     money[message.author.id].money += job[message.author.id].salary;
                     fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                        if (err) console.log(err)
+                        if (err) console.log(err);
                     });
                     money[message.author.id].bankSpace += 500;
                     fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                        if (err) console.log(err)
+                        if (err) console.log(err);
                     });
                     message.channel.send(`You worked as a ${job[message.author.id].job} and earned ${job[message.author.id].salary} coins.`);
-                } else {
-                    if (timeout - (Date.now() - cooldowns[message.author.id].work) > 0) {
-                        let time = ms(timeout - (Date.now() - cooldowns[message.author.id].work));
+                } else if (timeout - (Date.now() - cooldowns[message.author.id].work) > 0) {
+                        const time = ms(timeout - (Date.now() - cooldowns[message.author.id].work));
                         console.log(time);
             
                         return message.channel.send(`You already collected your work reward! Collect again in ${time.hours}h ${time.minutes}m ${time.seconds}s`);
                     } else {
                         money[message.author.id].money += job[message.author.id].salary;
                         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                            if (err) console.log(err)
+                            if (err) console.log(err);
                         });
                         money[message.author.id].bankSpace += 500;
                         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                            if (err) console.log(err)
+                            if (err) console.log(err);
                         });
                         message.channel.send(`You worked as a ${job[message.author.id].job} and earned ${job[message.author.id].salary} coins.`);
             
@@ -64,15 +62,12 @@ module.exports = {
                             if (err) console.log(err);
                         });
                     }
-                    }
-            }
-        } else {
-            if (args[0] === "list") {
+        } else if (args[0] === "list") {
                 const embed = new Discord.MessageEmbed()
                     .setTitle("Jobs Available")
                     .setDescription("1. Teacher\nThis job has a low salary and isn't that good.\n\n2. Police\nThis job has okay salary but still isn't that good.\n\n3. Lawyer\nThis job has a pretty good salary.\n\n4. President\nThis is the best job with the best salary!.")
                     .setFooter("Use =work <job name> to start working!")
-                    .setColor("#ff0000")
+                    .setColor("#ff0000");
                 return message.channel.send(embed);
             } else if (args[0] === "teacher") {
                 job[message.author.id] = {
@@ -81,7 +76,7 @@ module.exports = {
                     salary: 650
                 };
                 fs.writeFile("./job.json", JSON.stringify(job), (err) => {
-                    if (err) console.log(err)
+                    if (err) console.log(err);
                 });
 
                 return message.channel.send("You now work as a teacher and earn 650 coins an hour! You can start working by using =work.");
@@ -96,7 +91,7 @@ module.exports = {
                     salary: 1000
                 };
                 fs.writeFile("./job.json", JSON.stringify(job), (err) => {
-                    if (err) console.log(err)
+                    if (err) console.log(err);
                 });
 
                 return message.channel.send("You now work as a police officer and earn 1,000 coins an hour! You can start working by using =work.");
@@ -111,7 +106,7 @@ module.exports = {
                     salary: 5000
                 };
                 fs.writeFile("./job.json", JSON.stringify(job), (err) => {
-                    if (err) console.log(err)
+                    if (err) console.log(err);
                 });
 
                 return message.channel.send("You now work as a lawyer and earn 5,000 coins an hour! You can start working by using =work.");
@@ -126,11 +121,10 @@ module.exports = {
                     salary: 10000
                 };
                 fs.writeFile("./job.json", JSON.stringify(job), (err) => {
-                    if (err) console.log(err)
+                    if (err) console.log(err);
                 });
 
                 return message.channel.send("You now work as the president and earn 10,000 coins an hour! You can start working by using =work.");
             }
-        }
     }
 };
