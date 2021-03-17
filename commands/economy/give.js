@@ -1,5 +1,5 @@
 const fs = require("fs");
-const money = require("../money.json");
+const money = require("../../money.json");
 
 module.exports = {
     name: "give",

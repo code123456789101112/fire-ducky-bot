@@ -1,6 +1,6 @@
 const fs = require("fs");
-const money = require("../money.json");
-const cooldowns = require("../cooldowns.json");
+const money = require("../../money.json");
+const cooldowns = require("../../cooldowns.json");
 const ms = require("parse-ms");
 
 module.exports = {

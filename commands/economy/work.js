@@ -1,8 +1,8 @@
 const fs = require("fs");
-const money = require("../money.json");
-const cooldowns = require("../cooldowns.json");
+const money = require("../../money.json");
+const cooldowns = require("../../cooldowns.json");
 const ms = require("parse-ms");
-const job = require("../job.json");
+const job = require("../../job.json");
 const Discord = require("discord.js");
 
 module.exports = {

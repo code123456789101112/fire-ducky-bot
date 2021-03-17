@@ -1,4 +1,4 @@
-const money = require("../money.json");
+const money = require("../../money.json");
 const fs = require("fs");
 
 module.exports = {
