@@ -37,4 +37,7 @@ client.unabbrNum = function(num) {
 	return newNum;
 };
 
-client.login(process.env.token);
+const token = process.env.token;
+client.token = token;
+
+client.login(token);

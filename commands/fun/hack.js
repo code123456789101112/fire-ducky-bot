@@ -1,4 +1,4 @@
-const { botID } = require("../../config.json");
+const { botID } = require("../../jsons/config.json");
 const locations = ["39.291348, -71.410505", "38.565648, -66.241900", "32.107739, -49.607154"];
 
 module.exports = {

@@ -1,8 +1,8 @@
 const fs = require("fs");
-const money = require("../../money.json");
-const cooldowns = require("../../cooldowns.json");
+const money = require("../../jsons/money.json");
+const cooldowns = require("../../jsons/cooldowns.json");
 const ms = require("parse-ms");
-const { ownerID } = require("../../config.json");
+const { ownerID } = require("../../jsons/config.json");
 
 module.exports = {
     name: "rob",

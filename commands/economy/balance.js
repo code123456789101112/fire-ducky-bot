@@ -1,5 +1,5 @@
 const fs = require("fs");
-const money = require("../../money.json");
+const money = require("../../jsons/money.json");
 const Discord = require("discord.js");
 
 module.exports = {

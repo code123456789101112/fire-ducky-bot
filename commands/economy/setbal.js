@@ -1,6 +1,6 @@
 const fs = require("fs");
-const money = require("../../money.json");
-const { ownerID } = require("../../config.json");
+const money = require("../../jsons/money.json");
+const { ownerID } = require("../../jsons/config.json");
 
 module.exports = {
     name: "setbal",
