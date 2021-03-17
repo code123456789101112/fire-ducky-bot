@@ -1,3 +1,4 @@
+const { Collection } = require("discord.js");
 const { prefix, ownerID } = require("../config.json");
 
 module.exports = (client, message) => {
@@ -25,7 +26,7 @@ module.exports = (client, message) => {
 	}
 
 	if (!cooldowns.has(command.name)) {
-		cooldowns.set(command.name, new Discord.Collection());
+		cooldowns.set(command.name, new Collection());
 	}
 
 	const now = Date.now();
