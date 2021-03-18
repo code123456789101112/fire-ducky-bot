@@ -17,7 +17,8 @@ module.exports = {
 			money[user.id] = {
 				name: user.tag,
 				money: 0,
-				bank: 0
+				bank: 0,
+				bankSpace: 25000
 			};
             
 			fs.writeFile("./money.json", JSON.stringify(money), (err) => {
@@ -28,6 +29,9 @@ module.exports = {
 			money[user.id].bank = 0;
 			money[user.id].bankSpace = 25000;
 		}
+		fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+			if (err) console.log(err);
+		});
 
 		const embed = new Discord.MessageEmbed()
 			.setTitle(`${user.username}'s balance:`)

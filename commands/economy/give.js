@@ -9,7 +9,9 @@ module.exports = {
         const user = message.mentions.users.first();
         if (!user || isNaN(args[1])) return message.channel.send("You have to do the command like this: `=give <@user> <amount>` You must ping the user for it to work.");
 
-        if (!money[user.id] || !money[message.author.id]) {
+        if (!money[message.author.id]) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
+
+        if (!money[user.id]) {
             money[user.id] = {
                 name: user.tag,
                 money: 0,

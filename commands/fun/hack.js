@@ -1,4 +1,3 @@
-const { botID } = require("../../jsons/config.json");
 const locations = ["39.291348, -71.410505", "38.565648, -66.241900", "32.107739, -49.607154"];
 
 module.exports = {
@@ -10,7 +9,7 @@ module.exports = {
         const hackedUser = message.mentions.members.first();
         const hackedUsername = message.mentions.users.first().username;
 
-        if (message.mentions.users.first().id === botID) return message.channel.send("Why would I hack myself?");
+        if (message.mentions.users.first().id === client.user.id) return message.channel.send("Why would I hack myself?");
         if (message.mentions.users.first().bot) return message.channel.send("I can't hack my own kind.");
 
         await message.channel.send(`Commencing totally real hacking operation on ${hackedUser}`).then(async m => {
