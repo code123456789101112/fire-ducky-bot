@@ -3,7 +3,7 @@ module.exports = (client, oldState, newState) => {
 
     if (client.wr && newState.channelID === client.wr.id) {
         newState.member.voice.setChannel(client.ch);
-    } else if (newState.channelID === client.ch.id && client.ch.members.size == 1 && !client.wr) {
+    } else if (newState.channelID === client.ch.id && client.ch.members.size <= 1 && !client.wr) {
         console.log(client.ch.id);
         client.channels.cache.get("801148810725949471").send(`${newState.member} IS THE WINNER OF THE LAST TO LEAVE VC EVENT!!!`);
 
