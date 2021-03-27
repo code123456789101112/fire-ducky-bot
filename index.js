@@ -5,7 +5,7 @@ const client = new Client();
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
-const commandFolders = fs.readdirSync("./commands");
+const commandFolders = fs.readdirSync("./commands").filter(folder => !folder.includes("economy"));
 
 for (const folder of commandFolders) {
 	fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js")).forEach(file => {
@@ -37,4 +37,4 @@ client.unabbrNum = function(num) {
 	return newNum;
 };
 
-client.login(process.env.token);
+client.login("ODAxMTUwODk2NDA2Mzk2OTM2.YAcf6g.exyRXeIqUJ6srm7W8kAsnJXiUYE");
