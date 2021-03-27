@@ -37,4 +37,4 @@ client.unabbrNum = function(num) {
 	return newNum;
 };
 
-client.login("ODAxMTUwODk2NDA2Mzk2OTM2.YAcf6g.exyRXeIqUJ6srm7W8kAsnJXiUYE");
+client.login(process.env.token);
