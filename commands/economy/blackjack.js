@@ -108,7 +108,7 @@ module.exports = {
         const play = () => {
             gameEmbed();
 
-            const filter = m => m.author.id === message.author.id && (m.content.toLowerCase().startsWith("h") || m.content.toLowerCase().startsWith("s") || m.content.toLowerCase().startsWith("e"));
+            const filter = m => m.author.id === message.author.id && m.content.match(/^(h|s|e)/i);
             message.channel.awaitMessages(filter, { max: 1, time: 15000 }).then(collected => {
                 if (collected.first().content.toLowerCase().startsWith("h")) {
                     userCards.push(deal());
