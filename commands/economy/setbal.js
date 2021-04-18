@@ -1,4 +1,4 @@
-const { ownerID } = require("../../jsons/config.json");
+const { ownerID } = require("../../config.json");
 
 module.exports = {
     name: "setbal",

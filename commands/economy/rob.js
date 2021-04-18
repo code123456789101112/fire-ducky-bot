@@ -2,7 +2,7 @@
 // const money = require("../../jsons/money.json");
 // const cooldowns = require("../../jsons/cooldowns.json");
 const ms = require("parse-ms");
-const { ownerID } = require("../../jsons/config.json");
+const { ownerID } = require("../../config.json");
 
 module.exports = {
     name: "rob",
