@@ -31,13 +31,10 @@ module.exports = {
         const getValue = card => values[cards.indexOf(card)];
     
         const addCards = cardArray => {
-            const aceCount = cardArray.filter(card => card === "A").length;
-            let sum = cardArray.reduce((p, c) => p + getValue(c), 0);
+            const aceArray = cardArray.filter(card => card === "A");
+            let sum = cardArray.reduce((a, b) => a + getValue(b), 0);
 
-            for (let i = 0; i < aceCount; i++) {
-                sum += sum + 10 <= 21 ? 10 : 0;
-            }
-
+            for (const _ of aceArray) sum += sum + 10 <= 21 ? 10 : 0;
             return sum;
         };
 
