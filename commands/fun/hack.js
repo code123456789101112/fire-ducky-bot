@@ -31,7 +31,7 @@ module.exports = {
             await m.edit("Finding location . . .");
             await m.delete();
         });
-        await message.channel.send(`Location found: ${locations[Math.round(Math.random() * 2)]}`);
+        await message.channel.send(`Location found: ${locations[client.randomInt(0, 2)]}`);
         await message.channel.send("Totally real and not fake at all hack complete.");
     }
 };

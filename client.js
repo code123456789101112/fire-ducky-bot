@@ -47,4 +47,8 @@ module.exports = class extends Discord.Client {
 
         return await message.guild.roles.fetch(matches[1]);
     }
+
+    randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 };

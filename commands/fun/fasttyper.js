@@ -7,7 +7,7 @@ module.exports = {
     aliases: ["ft", "fast", "typer", "type", "fasttype", "typefast"],
     guildOnly: true,
     execute(client, message, args) {
-        const random = Math.round(Math.random() * 9);
+        const random = client.randomInt(0, 9);
         let first;
 
         message.channel.send("Okay, let's start. Below is what you need to retype.").then(m => {
