@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { token } = require("./jsons/config.json");
+const { token } = require("./config.json");
 
 const Client = require("./client.js");
 const client = new Client();

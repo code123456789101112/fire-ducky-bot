@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 const Keyv = require("keyv");
-const { dbURL } = require("./jsons/config.json");
+const { dbURL } = require("./config.json");
 
 module.exports = class extends Discord.Client {
     constructor(options) {
