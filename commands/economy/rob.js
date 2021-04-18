@@ -1,6 +1,6 @@
-const fs = require("fs");
-const money = require("../../jsons/money.json");
-const cooldowns = require("../../jsons/cooldowns.json");
+// const fs = require("fs");
+// const money = require("../../jsons/money.json");
+// const cooldowns = require("../../jsons/cooldowns.json");
 const ms = require("parse-ms");
 const { ownerID } = require("../../jsons/config.json");
 
@@ -10,7 +10,7 @@ module.exports = {
     usage: "user",
     description: "Currency command which tries to rob a user for their money.",
     execute(client, message, args) {
-        if (message.author.id !== ownerID) return message.channel.send("This command is coming soon.");
+        return message.channel.send("This command is coming soon.");
         
         const random = Math.round(Math.random() * 10);
         const user = message.mentions.users.first();

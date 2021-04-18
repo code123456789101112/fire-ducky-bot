@@ -4,6 +4,6 @@ module.exports = {
     permissions: ["ADMINISTRATOR"],
     async execute(client, message, args) {
         await client.destroy();
-        client.login(process.env.token);
+        client.login(require("../../jsons/config.json").token);
     }
 };

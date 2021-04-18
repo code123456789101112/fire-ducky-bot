@@ -7,8 +7,7 @@ module.exports = {
     cooldown: 60,
 	execute(client, message, args) {
         if (message.content.length <= 8) {
-            message.channel.send("What are you suggesting?");
-            return;
+            return message.channel.send("You didn't say what to suggest.");
         }
 
         const suggestion = message.content.slice(8);
@@ -20,8 +19,8 @@ module.exports = {
             .setColor("#ff0000")
             .setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412");
         suggestionChannel.send(embed).then(m => {
-            m.react("⬆️");
-            m.react("⬇️");
+            m.react("⬆️")
+            .then(() => m.react("⬇️"));
         });
 	},
 };

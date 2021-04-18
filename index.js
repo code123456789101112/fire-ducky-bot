@@ -1,40 +1,25 @@
 const fs = require("fs");
-const { Client, Collection } = require("discord.js");
+const { token } = require("./jsons/config.json");
 
+const Client = require("./client.js");
 const client = new Client();
-client.commands = new Collection();
-client.cooldowns = new Collection();
 
-const commandFolders = fs.readdirSync("./commands").filter(folder => !folder.includes("economy"));
+const eventFiles = fs.readdirSync("./events/").filter(file => file.endsWith(".js"));
+const commandFolders = fs.readdirSync("./commands/");
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	const eventName = file.split(".")[0];
 
-for (const folder of commandFolders) {
-	fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js")).forEach(file => {
-		const command = require(`./commands/${folder}/${file}`);
-		client.commands.set(command.name, command);
-	});
+	client.on(eventName, event.bind(null, client));
 }
 
-fs.readdir("./events/", (err, files) => {
-	if (err) return console.error(err);
-	files.forEach(file => {
-		const event = require(`./events/${file}`);
-		const eventName = file.split(".")[0];
-		client.on(eventName, event.bind(null, client));
-	});
-});
+for (const folder of commandFolders) {
+	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
 
-client.unabbrNum = function(num) {
-	if (typeof num !== "string") return;
-	
-	let n;
-	if (num.endsWith("k")) {
-		n = 1000;
-	} else if (num.endsWith("m")) {
-		n = 1000000;
-	} else return;
+	for (const file of commandFiles) {
+		const command = require(`./commands/${folder}/${file}`);
+		client.commands.set(command.name, command);
+	}
+}
 
-	const newNum = parseInt(num.slice(0, -1)) * n;
-	return newNum;
-};
-
-client.login(process.env.token);
+client.login(token);

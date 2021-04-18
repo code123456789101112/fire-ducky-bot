@@ -12,16 +12,16 @@ module.exports = {
                 return text;
         }
         
-        if(message.author.id !== ownerID) return message.channel.send(`Only the owner of the bot (id = ${ownerID}) can use this command.`);
+        if(message.author.id !== ownerID) return message.channel.send(`Only the owner of the bot (${client.user.cache.get(ownerID).tag}) can use this command.`);
         
         try {
-        const code = message.content.slice(5);
-        let evaled = eval(code);
-    
-        if (typeof evaled !== "string")
-            evaled = require("util").inspect(evaled);
-    
-        message.channel.send(clean(evaled), { code:"xl" });
+            const code = message.content.slice(5);
+            let evaled = eval(code);
+        
+            if (typeof evaled !== "string")
+                evaled = require("util").inspect(evaled);
+        
+            message.channel.send(clean(evaled), { code:"xl" });
         } catch (err) {
             message.author.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
         }

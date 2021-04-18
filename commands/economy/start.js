@@ -1,23 +1,16 @@
-const fs = require("fs");
-const money = require("../../jsons/money.json");
-
 module.exports = {
     name: "start",
     description: "Starts currency.",
     async execute(client, message, args) {
-        if (money[message.author.id]) return;
+        const { bal, bank, bankSpace } = client;
+        const userBal = await bal.get(message.author.id);
 
-        money[message.author.id] = {
-            name: message.author.tag,
-            money: 0,
-            bank: 0,
-            bankSpace: 25000
-        };
-        
-        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-            if (err) console.log(err);
-        });
+        if (!isNaN(userBal)) return;
 
-        message.channel.send("You have started!");
+        bal.set(message.author.id, 0);
+        bank.set(message.author.id, 0);
+        bankSpace.set(message.author.id, 0);
+
+        message.author.send("Welcome to the currency system! There are many commands, so use `=help` to see them all!");
     }
 };

@@ -1,21 +1,16 @@
-const money = require("../../jsons/money.json");
-const fs = require("fs");
-
 module.exports = {
 	name: "beg",
 	cooldown: 15,
 	description: "Currency command which raises balance by random number.",
-	execute(client, message, args) {
-		if (!money[message.author.id]) {
-			return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
-		}
+	async execute(client, message, args) {
+		const { bal } = client;
+		const userBal = await bal.get(message.author.id);
+
+		if (userBal === undefined) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
 
 		const random = Math.round(Math.random() * 400);
-		money[message.author.id].money += random;
-		fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-			if (err) console.log(err);
-		});
+		bal.set(message.author.id, userBal + random);
 
-		message.channel.send(`You begged and received ${random} coins`);
+		message.channel.send(`You begged and received ${random} coins!`);
 	}
 };

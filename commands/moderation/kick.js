@@ -10,14 +10,14 @@ module.exports = {
             return message.channel.send("You didn't say who to kick");
         }
 
-        const user = message.mentions.users.first();
+        const member = message.mentions.members.first();
         if (args[1]) {
-            user.send(args[1]);
+            member.user.send(args[1]);
         }
 
-        user.kick().catch(error => {
+        member.kick().catch(error => {
             console.error(error);
-            message.channel.send(`There was an error kicking ${user.username}`);
+            message.channel.send(`There was an error kicking ${member.user.username}`);
         });
     }
 };

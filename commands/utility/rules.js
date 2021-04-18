@@ -15,9 +15,8 @@ module.exports = {
                 .setDescription(rule.join("\n"));
             message.channel.send(embed);
         } else {
-            let num = parseInt(args[0]);
-            num--;
-            message.channel.send(rule[num]);
+            const num = parseInt(args[0]);
+            message.channel.send(rule[num - 1]);
         }
 	}
 };

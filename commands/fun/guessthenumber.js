@@ -3,17 +3,11 @@ module.exports = {
     description: "Starts a guess the number game.",
     aliases: ["gtn", "guess", "number", "guessnumber", "numberguess"],
     guildOnly: true,
-    execute(client, message, args) {
-        let firstTime;
-        let firstt;
-
-        message.channel.send("I'm thinking of a number between 1 and 500, guess it in the chat below.").then(first => {
-            firstt = first;
-        });
+    async execute(client, message, args) {
+        const first = await message.channel.send("I'm thinking of a number between 1 and 500, guess it in the chat below.");
         
         const num = Math.round(Math.random() * 500);
         let guessedNum;
-        console.log(num);
 
         function guessTheNumber() {
             message.channel.awaitMessages(m => m.author.id == message.author.id,
@@ -25,7 +19,7 @@ module.exports = {
                     guessedNum = parseInt(collected.first().content);
 
                     if (guessedNum == num) {
-                        message.channel.send(`The number was ${num}!! <@${message.author.id}>, you took ${(collected.first().createdTimestamp - firstt.createdTimestamp) / 1000} seconds!`);
+                        message.channel.send(`The number was ${num}!! <@${message.author.id}>, you took ${(collected.first().createdTimestamp - first.createdTimestamp) / 1000} seconds!`);
                         return;
                     } else
                         if (guessedNum < num) {
@@ -40,6 +34,7 @@ module.exports = {
                     }   
                 );     
         }
+        
         guessTheNumber();
     }
 };

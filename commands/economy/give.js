@@ -1,42 +1,29 @@
-const fs = require("fs");
-const money = require("../../jsons/money.json");
-
 module.exports = {
     name: "give",
     usage: "user money",
     description: "Gives money to someone else.",
-    execute(client, message, args) {
-        const user = message.mentions.users.first();
-        if (!user || isNaN(args[1])) return message.channel.send("You have to do the command like this: `=give <@user> <amount>` You must ping the user for it to work.");
-
-        if (!money[message.author.id]) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
-
-        if (!money[user.id]) {
-            money[user.id] = {
-                name: user.tag,
-                money: 0,
-                bank: 0,
-                bankSpace: 25000
-            };
-            
-            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                if (err) console.log(err);
-            });
+    async execute(client, message, args) {
+        const { bal, bank, bankSpace } = client;
+        const authorBal = await bal.get(message.author.id);
+        if (authorBal === undefined) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
+        
+        const user = message.mentions.users.first() || client.users.cache.get(args[0]);
+        let userBal = await bal.get(user.id);
+        if (userBal === undefined) {
+            bal.set(user.id, 0);
+            bank.set(user.id, 0);
+            bankSpace.set(user.id, 0);
+            userBal = await bal.get(user.id);
         }
 
-        if (parseInt(args[1]) > money[message.author.id].money) {
-            return message.channel.send("You don't have enough for this.");
-        }
+        if (isNaN(args[1])) return message.channel.send("That's not a valid amount");
 
-        money[message.author.id].money -= parseInt(args[1]);
-        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-            if (err) console.log(err);
-        });
-        money[user.id].money += parseInt(args[1]);
-        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-            if (err) console.log(err);
-        });
+        const amount = parseInt(args[1]);
+        if (amount > authorBal) return message.channel.send("You don't have enough for this.");
 
-        message.channel.send(`You gave ${user.username} ${args[1]} coins!`);
+        bal.set(message.author.id, authorBal - amount);
+        bal.set(user.id, userBal + amount);
+
+        message.channel.send(`You successfully gave ${amount} to ${user.username}!`);
     }
 };

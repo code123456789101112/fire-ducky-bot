@@ -14,18 +14,18 @@ module.exports = {
             first = m;
         });
         
-        message.channel.send(photoPhrase[random]).then(phraseMessage => {
+        message.channel.send(photoPhrase[random]).then(() => {
             message.channel.awaitMessages(m => m.content == phrase[random],
-                { max: 100, time: 30000 }).then(collected => {
+                { max: 1, time: 30000 }).then(collected => {
                     if (collected.first().content == phrase[random]) {
                         collected.first().reply(`You win with a time of ${(collected.first().createdTimestamp - first.createdTimestamp) / 1000} seconds!!!!`);
                         return;
                     }
 
                     else
-                        message.reply("Operation canceled.");      
+                        message.reply("Game canceled.");      
                     }).catch(() => {
-                        message.reply("No answer after 30 seconds, operation canceled.");
+                        message.reply("No answer after 30 seconds, game canceled.");
                     });
         });
 

@@ -8,7 +8,6 @@ module.exports = {
 
         message.guild.channels.create("last 2 leave VC WAITING ROOM", { type: "voice" }).then(ch => {
             ch.setParent("801125577644834912");
-            waitingRoom = ch;
             setTimeout(() => {
                 ch.delete(); 
                 delete client.wr; 
