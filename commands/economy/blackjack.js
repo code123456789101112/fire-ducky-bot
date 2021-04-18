@@ -47,17 +47,19 @@ module.exports = {
             const user = addCards(userCards);
             const dealer = addCards(dealerCards);
 
-            if (user === 21) return { msg: "You win! You have 21!", win: true };
-            else if (user <= 21 && userCards.length === 5) return { msg: "You win! You took 5 cards without going over 21!", win: true };
-            else if (user > dealer && stood) return { msg: "You win! You have more than the dealer!", win: true };
+            if (user > 21) return { msg: "You lose, Busted! You went over 21!", win: false };
             else if (dealer > 21) return { msg: "You win! Your opponent was busted!", win: true };
+
+            else if (dealer === 21) return { msg: "You lose! Your opponent has exactly 21!", win: false };
+            else if (user === 21) return { msg: "You win! You have 21!", win: true };
+
+            else if (user <= 21 && userCards.length === 5) return { msg: "You win! You took 5 cards without going over 21!", win: true };
+            else if (dealer <= 21 && dealerCards.length === 5) return { msg: "You lose! Your opponent took 5 cards without going over 21!", win: false };
 
             else if (dealer === user && stood) return { msg: "It's a tie!", win: null };
 
-            else if (user > 21) return { msg: "You lose, Busted! You went over 21!", win: false };
             else if (dealer > user && stood) return { msg: "You lose! You have less than your opponent!", win: false };
-            else if (dealer <= 21 && dealerCards.length === 5) return { msg: "You lose! Your opponent took 5 cards without going over 21!", win: false };
-            else if (dealer === 21) return { msg: "You lose! Your opponent has exactly 21!", win: false };
+            else if (user > dealer && stood) return { msg: "You win! You have more than the dealer!", win: true };
 
             else return;
         };
