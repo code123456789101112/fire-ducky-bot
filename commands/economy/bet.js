@@ -27,7 +27,7 @@ module.exports = {
                 { name: "Bot's Roll", value: botRoll }
             ]);
         if (userRoll > botRoll) {
-            embed.setColor("##05ed43");
+            embed.setColor("#05ed43");
             embed.setDescription("You Won!!");
 
             const winAmount = client.randomInt(bet * 0.1, bet * 2);
