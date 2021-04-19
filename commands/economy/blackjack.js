@@ -5,7 +5,7 @@ module.exports = {
     aliases: ["bj"],
     description: "the card game",
     usage: "<amount>",
-    cooldown: 6,
+    cooldown: 8,
     async execute(client, message, args) {
         const { bal } = client;
         const userBal = await bal.get(message.author.id);
