@@ -1,3 +1,5 @@
+const Discord = require("discord.js");
+
 module.exports = {
     name: "rockpaperscissors",
     aliases: ["rps", "rockpaper", "paperscissors", "rockscissors"],
@@ -28,39 +30,51 @@ module.exports = {
                 if (choice === "rock") return { msg: "You lost!", win: false };
                 else return { msg: "You won!", win: true };
             } else if (botChoice === "scissors") {
-
+                if (choice === "rock") return { msg: "You won!", win: true };
+                else return { msg: "You lost!", win: false };
             }
         };
 
+        message.channel.send("Okay, pick: rock (`r`), paper (`p`), or scissors (`s`)");
+
         const filter = m => m.author.id === message.author.id && m.content.match(/^(r|p|s)/i);
-        message.channel.awaitMessages(filter, { max: 1, time: 15000 }).then(collected => {
+        message.channel.awaitMessages(filter, { max: 1, time: 15000, errors: ["time"] }).then(collected => {
             const content = collected.first().content.toLowerCase();
 
+            let result;
+            let choice;
             if (content.startsWith("r")) {
-                if (botChoice === "rock") {
-                    
-                } else if (botChoice === "paper") {
-                    
-                } else {
-
-                }
+                result = checkWin("rock");
+                choice = "rock";
             } else if (content.startsWith("p")) {
-                if (botChoice === "rock") {
-
-                } else if (botChoice === "paper") {
-                    
-                } else {
-
-                }
+                result = checkWin("paper");
+                choice = "paper";
             } else if (content.startsWith("s")) {
-                if (botChoice === "rock") {
-
-                } else if (botChoice === "paper") {
-                    
-                } else {
-
-                }
+                result = checkWin("scissors");
+                choice = "scissors";
             } else return message.channel.send("You ended the game.");
+
+            const gameEmbed = new Discord.MessageEmbed()
+                .setTitle(`${message.author.username}, ${result.msg}`)
+                .addFields([{ name: "Your choice", value: choice },
+                    { name: "Bot's choice:", value: botChoice }]);
+
+            const winAmount = client.randomInt(bet * 0.25, bet * 1.5);
+
+            if (result.win) {
+                bal.set(message.author.id, userBal + winAmount);
+
+                gameEmbed.setColor("#00ff00");
+                message.channel.send(`You won ${winAmount}!!`, { embed: gameEmbed });
+            } else if (result.win === null) {
+                gameEmbed.setColor("#ffff00");
+                message.channel.send("It was a tie. You lost nothing", { embed: gameEmbed });
+            } else {
+                bal.set(message.author.id, userBal - bet);
+
+                gameEmbed.setColor("#ff0000");
+                message.channel.send("You lost your entire bet!", { embed: gameEmbed });
+            }
         }).catch(() => message.channel.send("You didn't answer, ending the game"));
     }
 };
