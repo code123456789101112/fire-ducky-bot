@@ -7,16 +7,14 @@ module.exports = (client, message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 	else if (message.channel.id === "801150859873746984" && message.author.id !== ownerID) return;
 
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const args = message.content.slice(prefix.length).trim().split(/\s+/);
 	const commandName = args.shift().toLowerCase();
 
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 	if (!command) return;
 
-	if (command.guildOnly && message.channel.type === "dm") {
-		return message.reply("I can't execute that command inside DMs!");
-	}
+	if (command.guildOnly && message.channel.type === "dm") return message.reply("I can't execute that command inside DMs!");
 
 	if (command.permissions) {
 		const authorPerms = message.channel.permissionsFor(message.author);
@@ -25,9 +23,7 @@ module.exports = (client, message) => {
 		}
 	}
 
-	if (!cooldowns.has(command.name)) {
-		cooldowns.set(command.name, new Collection());
-	}
+	if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Collection());
 
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
