@@ -19,6 +19,6 @@ module.exports = Structures.extend("Message", Message => {
             });
 
             return await this.channel.messages.fetch(msg.id);
-          }
+        }
     };
 });
