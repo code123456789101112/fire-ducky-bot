@@ -18,9 +18,7 @@ module.exports = (client, message) => {
 
 	if (command.permissions) {
 		const authorPerms = message.channel.permissionsFor(message.author);
-		if (!authorPerms || !authorPerms.has(command.permissions)) {
-			return message.reply("You can not do this!");
-		}
+		if (!authorPerms || !authorPerms.has(command.permissions)) return message.reply("You can not do this!");
 	}
 
 	if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Collection());
