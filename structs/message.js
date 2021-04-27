@@ -1,4 +1,4 @@
-const { Structures, APIMessage, Client, TextChannel, DMChannel, NewsChannel, MessageOptions, MessageAdditions } = require("discord.js");
+const { Structures, APIMessage, Client, TextChannel, DMChannel, NewsChannel, StringResolvable, MessageOptions, MessageAdditions } = require("discord.js");
 
 Structures.extend("Message", Msg => {
   class Message extends Msg {
@@ -13,7 +13,7 @@ Structures.extend("Message", Msg => {
     }
     /**
      * 
-     * @param {String} content 
+     * @param {StringResolvable|APIMessage} content 
      * @param {MessageOptions|MessageAdditions} options 
      * @returns {Promise<Message>}
      */
