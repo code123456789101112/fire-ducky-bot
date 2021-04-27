@@ -1,6 +1,13 @@
 const { Collection } = require("discord.js");
 const { prefix, ownerID } = require("../config.json");
 
+const Client = require("../client.js");
+const Message = require("../message.js");
+/**
+ * 
+ * @param {Client} client 
+ * @param {Message} message 
+ */
 module.exports = (client, message) => {
     const { cooldowns } = client;
 

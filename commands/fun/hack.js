@@ -1,10 +1,19 @@
 const locations = ["39.291348, -71.410505", "38.565648, -66.241900", "32.107739, -49.607154"];
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "hack",
     description: "Hacks the pinged user. (not real)",
     guildOnly: true,
     usage: "user",
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     async execute(client, message, args) {
         const hackedUser = message.mentions.members.first();
         const hackedUsername = message.mentions.users.first().username;

@@ -1,3 +1,6 @@
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "kick",
     description: "kicks pinged user",
@@ -5,6 +8,12 @@ module.exports = {
     cooldown: 10,
     permissions: ["ADMINISTRATOR"],
     aliases: ["boot"],
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     execute(client, message, args) {
         if (!message.mentions.users.size) {
             return message.channel.send("You didn't say who to kick");

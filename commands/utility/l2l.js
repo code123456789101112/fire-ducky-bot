@@ -1,7 +1,16 @@
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "l2l",
     description: "Starts last to leave VC event.",
     permissions: ["ADMINISTRATOR"],
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     execute(client, message, args) {
         message.delete();
         client.l2l = true;

@@ -1,3 +1,11 @@
+const Client = require("../client.js");
+const { VoiceState } = require("discord.js");
+/**
+ * 
+ * @param {Client} client 
+ * @param {VoiceState} oldState 
+ * @param {VoiceState} newState 
+ */
 module.exports = (client, oldState, newState) => {
     if (!client.l2l) return;
 

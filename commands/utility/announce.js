@@ -1,4 +1,7 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
+
+const Client = require("../../client.js");
+const Message = require("../../message.js");
 
 module.exports = {
 	name: "announce",
@@ -6,13 +9,19 @@ module.exports = {
 	permissions: ["ADMINISTRATOR"],
 	guildOnly: true,
 	usage: "/ title here / description here / ping here (optional)",
-	execute(_client, message, args) {
+	/**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
+	execute(client, message, args) {
 		const announceArgs = args.join(" ").split(" / ");
 		let ping;
 		
 		if (!announceArgs[2]) {
 			message.delete();
-			const embed = new Discord.MessageEmbed()
+			const embed = new MessageEmbed()
 				.setTitle(announceArgs[0])
 				.setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412")
 				.setColor("#ff0000")
@@ -34,7 +43,7 @@ module.exports = {
 			message.delete();
 			message.channel.send(ping);
 			
-			const embed = new Discord.MessageEmbed()
+			const embed = new MessageEmbed()
 				.setTitle(announceArgs[0])
 				.setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412")
 				.setColor("#ff0000")

@@ -1,7 +1,16 @@
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "heist",
     description: "does heist thing",
     permissions: ["ADMINISTRATOR"],
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     execute(client, message, args) {
         message.channel.send("Okay, watching for a heist in this channel.");
         message.channel.awaitMessages(m => m.author.id === "270904126974590976" && m.content.includes("is starting a bank robbery. They're trying to break into") && m.content.includes("Join them by typing `JOIN HEIST` soon!"),

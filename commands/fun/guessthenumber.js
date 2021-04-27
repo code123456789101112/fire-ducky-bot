@@ -1,8 +1,17 @@
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "guessthenumber",
     description: "Starts a guess the number game.",
     aliases: ["gtn", "guess", "number", "guessnumber", "numberguess"],
     guildOnly: true,
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     async execute(client, message, args) {
         const first = await message.channel.send("I'm thinking of a number between 1 and 500, guess it in the chat below.");
         

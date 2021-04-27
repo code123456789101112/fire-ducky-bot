@@ -1,9 +1,18 @@
 const Discord = require("discord.js");
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "donate",
     description: "Donate to giveaway or heist!",
     cooldown: 10,
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     execute(client, message, args) {
         let gawtype;
         let amount;

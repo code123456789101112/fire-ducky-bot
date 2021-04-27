@@ -1,9 +1,18 @@
 const { ownerID } = require("../../config.json");
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "setbal",
     usage: "user bal",
     description: "sets a user's balance",
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     async execute(client, message, args) {
         if (message.author.id !== ownerID) return;
 

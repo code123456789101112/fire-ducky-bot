@@ -1,9 +1,18 @@
 const { prefix } = require("../../config.json");
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
 	name: "help",
 	description: "List all of the commands or info about a specific command.",
 	aliases: ["commands"],
+	/**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
 	execute(client, message, args) {
 		const data = [];
 		const { commands } = client;

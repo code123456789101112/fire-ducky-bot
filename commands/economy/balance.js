@@ -1,10 +1,19 @@
 const Discord = require("discord.js");
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
 	name: "balance",
 	aliases: ["bal", "money"],
 	description: "Currency command that shows the user's balance.",
 	usage: "user",
+	/**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
 	async execute(client, message, args) {
 		const user = message.mentions.users.first() || message.author;
 

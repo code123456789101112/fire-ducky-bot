@@ -1,8 +1,17 @@
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "fight",
     description: "Starts a fight against the pinged user.",
     guildOnly: true,
     usage: "user",
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     execute(client, message, args) {
         const p1 = message.author;
         const p2 = message.mentions.users.first();

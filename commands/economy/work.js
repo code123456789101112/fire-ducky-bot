@@ -1,9 +1,18 @@
 const ms = require("parse-ms");
 const Discord = require("discord.js");
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "work",
     description: "Currency command that can be used every hour.",
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     async execute(client, message, args) {
         const timeout = 3600000;
         

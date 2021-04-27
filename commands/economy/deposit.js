@@ -1,8 +1,17 @@
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "deposit",
     aliases: ["dep"],
     usage: "amount",
     description: "Currency command which deposits money into your bank.",
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     async execute(client, message, args) {
         const { bal, bank, bankSpace } = client;
         const userBal = await bal.get(message.author.id);

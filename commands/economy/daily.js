@@ -1,8 +1,17 @@
 const ms = require("parse-ms");
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "daily",
     description: "Currency command that can be used to get coins once every day.",
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     async execute(client, message, args) {
         const reward = 10000;
         const timeout = 86400000;

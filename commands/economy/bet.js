@@ -1,10 +1,20 @@
 const Discord = require("discord.js");
+
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
     name: "bet",
     aliases: ["gamble"],
     uage: "<amount>",
     description: "gamble command",
     cooldown: 6,
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
     async execute(client, message, args) {
         const { bal } = client;
         const userBal = await bal.get(message.author.id);

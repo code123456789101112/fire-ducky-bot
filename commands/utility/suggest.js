@@ -1,10 +1,19 @@
 const Discord = require("discord.js");
 
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
 	name: "suggest",
     description: "Makes a suggestion.",
     usage: "suggestion",
     cooldown: 60,
+    /**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
 	execute(client, message, args) {
         if (message.content.length <= 8) {
             return message.channel.send("You didn't say what to suggest.");

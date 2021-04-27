@@ -1,8 +1,17 @@
+const Client = require("../../client.js");
+const Message = require("../../message.js");
+
 module.exports = {
 	name: "avatar",
 	description: "Shows the user's pfp.",
 	aliases: ["av", "icon", "pfp", "profilepicture", "profilepic"],
 	usage: "user",
+	/**
+	 * 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
 	execute(client, message, args) {
 		if (!message.mentions.users.size) {
 			return message.channel.send(`Your avatar: ${message.author.displayAvatarURL({ dynamic: true })}`);
