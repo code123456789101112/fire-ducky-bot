@@ -1,4 +1,4 @@
-const { Structures, APIMessage, Client, TextChannel, DMChannel, NewsChannel, StringResolvable, MessageOptions, MessageAdditions } = require("discord.js");
+const { Structures, APIMessage, Client, TextChannel, DMChannel, NewsChannel, StringResolvable, MessageOptions, MessageAdditions, Collection } = require("discord.js");
 
 Structures.extend("Message", Msg => {
   class Message extends Msg {
@@ -10,6 +10,53 @@ Structures.extend("Message", Msg => {
      */
     constructor(client, data, channel) {
       super(client, data, channel);
+    }
+    
+    command() {
+      const { prefix, ownerID } = require("../config.json");
+      const { cooldowns } = this.client;
+
+      if (!this.content.startsWith(prefix) || this.author.bot) return;
+      else if (this.channel.id === "801150859873746984" && this.author.id !== ownerID) return;
+
+      const args = this.content.slice(prefix.length).trim().split(/\s+/);
+      const commandName = args.shift().toLowerCase();
+
+      const command = this.client.commands.get(commandName) || this.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+      if (!command) return;
+
+      if (command.guildOnly && this.channel.type === "dm") return this.reply("I can't execute that command inside DMs!");
+
+      if (command.permissions) {
+        const authorPerms = this.channel.permissionsFor(this.author);
+        if (!authorPerms || !authorPerms.has(command.permissions)) return this.reply("You can not do this!");
+      }
+
+      if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Collection());
+
+      const now = Date.now();
+      const timestamps = cooldowns.get(command.name);
+      const cooldownAmount = (command.cooldown) * 1000;
+
+      if (timestamps.has(this.author.id)) {
+        const expirationTime = timestamps.get(this.author.id) + cooldownAmount;
+
+        if (now < expirationTime) {
+          const timeLeft = (expirationTime - now) / 1000;
+          return this.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+        }
+      }
+
+      timestamps.set(this.author.id, now);
+      setTimeout(() => timestamps.delete(this.author.id), cooldownAmount);
+
+      try {
+        command.execute(this.client, this, args);
+      } catch (error) {
+        console.error(error);
+        this.reply("There was an error trying to execute that command!");
+      }
     }
     /**
      * 
