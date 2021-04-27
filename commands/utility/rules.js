@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 const rule = ["1. No spam unless it's in a spam channel", "2. No cursing unless it's in <#806583914716987462>", "3. Don't be racist", "4. Don't be rude", "5. No cheating in events", "6. If you want roles contact a higherup", "7. Report stuff to owners", "8. Treat everyone with respect. Absolutely no harassment, sexism, racism, or hate speech will be tolerated.", "9. No self-promotion (server invites, advertisements, etc) without having a certain number of invites. This includes DMing fellow members.", "10. If you see something that's against the rules or something that makes you feel unsafe, let staff know! We want this server to be a welcoming space!", "11. No NSFW or obscene content. This includes text, images, or links featuring nudity, sex, hard violence, or other graphically disturbing content."];
 
-const Client = require("../../client.js");
-const Message = require("../../message.js");
+const Client = require("../../structs/client.js");
+const Message = require("../../structs/message.js");
 
 module.exports = {
 	name: "rules",

@@ -1,7 +1,7 @@
 const fs = require("fs");
 
-require("./message.js");
-const Client = require("./client.js");
+require("./structs/message.js");
+const Client = require("./structs/client.js");
 const client = new Client();
 
 const eventFiles = fs.readdirSync("./events/").filter(file => file.endsWith(".js"));

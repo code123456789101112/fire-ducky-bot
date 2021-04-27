@@ -1,8 +1,8 @@
 const { Collection } = require("discord.js");
 const { prefix, ownerID } = require("../config.json");
 
-const Client = require("../client.js");
-const Message = require("../message.js");
+const Client = require("../structs/client.js");
+const Message = require("../structs/message.js");
 /**
  * 
  * @param {Client} client 

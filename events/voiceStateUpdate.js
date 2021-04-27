@@ -1,4 +1,4 @@
-const Client = require("../client.js");
+const Client = require("../structs/client.js");
 const { VoiceState } = require("discord.js");
 /**
  * 

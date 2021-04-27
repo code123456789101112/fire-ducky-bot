@@ -2,7 +2,7 @@ const { Collection, Client, ClientOptions, User, GuildMember, Channel, Role } = 
 const Message = require("./message.js");
 
 const Keyv = require("keyv");
-const { dbURL } = require("./config.json");
+const { dbURL } = require("../config.json");
 
 module.exports = class extends Client {
     /**

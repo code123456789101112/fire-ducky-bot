@@ -1,7 +1,7 @@
 const locations = ["39.291348, -71.410505", "38.565648, -66.241900", "32.107739, -49.607154"];
 
-const Client = require("../../client.js");
-const Message = require("../../message.js");
+const Client = require("../../structs/client.js");
+const Message = require("../../structs/message.js");
 
 module.exports = {
     name: "hack",

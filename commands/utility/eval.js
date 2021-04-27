@@ -1,7 +1,7 @@
 const { ownerID } = require("../../config.json");
 
-const Client = require("../../client.js");
-const Message = require("../../message");
+const Client = require("../../structs/client.js");
+const Message = require("../../structs/message.js");
 
 module.exports = {
     name: "eval",
