@@ -23,6 +23,8 @@ module.exports = class extends Client {
         this.salary = new Keyv(dbURL, { collection: "jobSalary" });
 
         this.cd = new Keyv(dbURL, { collection: "cooldowns" });
+
+        this.afk = new Keyv(dbURL, { collection: "afk" });
     }
     /**
      * 
