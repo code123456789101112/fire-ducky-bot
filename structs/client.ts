@@ -2,7 +2,9 @@ import { Collection, Client, ClientOptions, User, GuildMember, Channel, Role } f
 import Message from "./message.js";
 
 import Keyv from "keyv";
+
 import config from "../config.js";
+const { dbURL } = config;
 
 export default class extends Client {
     commands: Collection<string, object>;
@@ -35,16 +37,16 @@ export default class extends Client {
         this.commands = new Collection();
         this.cooldowns = new Collection();
 
-        this.bal = new Keyv(config.dbURL, { collection: "bal" });
-        this.bank = new Keyv(config.dbURL, { collection: "bank" });
-        this.bankSpace = new Keyv(config.dbURL, { collection: "bankSpace" });
+        this.bal = new Keyv(dbURL, { collection: "bal" });
+        this.bank = new Keyv(dbURL, { collection: "bank" });
+        this.bankSpace = new Keyv(dbURL, { collection: "bankSpace" });
 
-        this.jobs = new Keyv(config.dbURL, { collection: "jobs" });
-        this.salary = new Keyv(config.dbURL, { collection: "jobSalary" });
+        this.jobs = new Keyv(dbURL, { collection: "jobs" });
+        this.salary = new Keyv(dbURL, { collection: "jobSalary" });
 
-        this.cd = new Keyv(config.dbURL, { collection: "cooldowns" });
+        this.cd = new Keyv(dbURL, { collection: "cooldowns" });
 
-        this.afk = new Keyv(config.dbURL, { collection: "afk" });
+        this.afk = new Keyv(dbURL, { collection: "afk" });
 
         this.l2l = false;
         this.ch = false;
