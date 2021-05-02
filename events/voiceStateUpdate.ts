@@ -6,7 +6,7 @@ import Client from "../structs/client.js";
  * @param {VoiceState} oldState 
  * @param {VoiceState} newState 
  */
- export default (client: Client, oldState: VoiceState, newState: VoiceState) => {
+export default (client: Client, oldState: VoiceState, newState: VoiceState) => {
     if (!client.l2l) return;
 
     if (client.wr && newState.channelID === client.wr.id) {
