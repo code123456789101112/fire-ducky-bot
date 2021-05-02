@@ -19,7 +19,7 @@ export default class Message extends Discord.Message {
     const { cooldowns } = client;
 
     if (!this.content.startsWith(prefix) || this.author.bot) return;
-    else if (this.channel.id === "801150859873746984" && this.author.id !== ownerID) return;
+    else if (this.channel.id === "838127722478960680" && this.author.id !== ownerID) return;
 
     const args: string[] = this.content.slice(prefix.length).trim().split(/\s+/);
     const commandName: string | undefined = args.shift()?.toLowerCase();

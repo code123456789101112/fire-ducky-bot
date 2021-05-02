@@ -23,8 +23,7 @@ export default {
 			message.delete();
 			const embed: MessageEmbed = new MessageEmbed()
 				.setTitle(announceArgs[0])
-				.setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412")
-				.setColor("#ff0000")
+				.setColor("#00ffdb")
 				.setDescription(announceArgs[1]);
 			message.channel.send(embed);
 		} else {
@@ -45,8 +44,7 @@ export default {
 			
 			const embed: MessageEmbed = new MessageEmbed()
 				.setTitle(announceArgs[0])
-				.setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412")
-				.setColor("#ff0000")
+				.setColor("#00ffdb")
 				.setDescription(announceArgs[1]);
 			message.channel.send(embed);
 		}

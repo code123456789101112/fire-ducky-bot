@@ -35,7 +35,7 @@ export default {
 
 		const embed: MessageEmbed = new MessageEmbed()
 			.setTitle(`${user.username}'s balance:`)
-			.setColor("#ff0000")
+			.setColor("#00ffdb")
 			.addFields([
 				{ name: "Wallet:", value: userBal },
 				{ name: "Bank:", value: `${userBank}/${userBankSpace}` }

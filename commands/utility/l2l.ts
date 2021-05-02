@@ -17,7 +17,7 @@ export default {
         client.l2l = true;
 
         (message.guild as Guild).channels.create("last 2 leave VC WAITING ROOM", { type: "voice" }).then((ch: VoiceChannel)  => {
-            ch.setParent("801125577644834912");
+            ch.setParent("838124927470796850");
             setTimeout(() => {
                 ch.delete(); 
                 delete client.wr; 
@@ -26,13 +26,13 @@ export default {
         });
 
         (message.guild as Guild).channels.create("last 2 leave VC", { type: "voice" }).then(async (ch: VoiceChannel) => {
-            await ch.setParent("801125577644834912");
+            await ch.setParent("838124927470796850");
             client.ch = ch;
             await ch.updateOverwrite((message.guild as Guild).roles.everyone, { CONNECT: false, SPEAK: false });
         });
 
         (message.guild as Guild).channels.create("last 2 leave VC LOGS", { type: "text" }).then(async (ch: TextChannel) => {
-            await ch.setParent("801125577644834912");
+            await ch.setParent("838124927470796850");
             client.chlogs = ch;
             await ch.updateOverwrite((message.guild as Guild).roles.everyone, { VIEW_CHANNEL: false });
         });

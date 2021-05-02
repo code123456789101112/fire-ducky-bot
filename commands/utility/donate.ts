@@ -29,8 +29,7 @@ export default {
                             const embed: MessageEmbed = new MessageEmbed()
                                 .setTitle(`${message.author.username}'s donation`)
                                 .setDescription(`${message.author} wants to donate to a ${gawtype}: ${amount}!`)
-                                .setColor("#ff0000")
-                                .setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412");
+                                .setColor("#00ffdb");
                             message.channel.send(`<@&801147084732497971> - <@${message.author.id}>`);
                             return message.channel.send(embed);
                         }).catch(() => {
@@ -45,8 +44,7 @@ export default {
                             const embed: MessageEmbed = new MessageEmbed()
                                 .setTitle(`${message.author.username}'s donation`)
                                 .setDescription(`${message.author} wants to donate to a ${gawtype}: ${amount}!`)
-                                .setColor("#ff0000")
-                                .setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412");
+                                .setColor("#00ffdb")
                             message.channel.send(`<@&801147084732497971> - <@${message.author.id}>`);
                             return message.channel.send(embed);
                         }).catch(() => {

@@ -1,4 +1,4 @@
-import { Guild, GuildChannel, MessageEmbed, TextChannel } from "discord.js";
+import { Guild, MessageEmbed, TextChannel } from "discord.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
