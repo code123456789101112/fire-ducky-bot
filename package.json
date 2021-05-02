@@ -8,5 +8,10 @@
   "devDependencies": {
     "@types/keyv": "^3.1.1"
   },
+  "scripts": {
+    "s": "pm2 stop dist/index.js",
+    "st": "pm2 stop dist/index.js",
+    "git": "git add . && git commit -m \"Commit\" && git push origin main"
+  },
   "type": "module"
 }
