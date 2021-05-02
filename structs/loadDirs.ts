@@ -2,6 +2,10 @@ import fs from "fs";
 import Client from "./client.js"
 
 export default {
+    /**
+     * 
+     * @param {Client} client 
+     */
     async loadEvents(client: Client) {
         const files: string[] = fs.readdirSync("./events");
         for (const file of files) {
@@ -15,7 +19,10 @@ export default {
         
         console.log();
     },
-
+    /**
+     * 
+     * @param {Client} client
+     */
     async loadCommands(client: Client) {
         const folders: string[] = fs.readdirSync("./commands/");
         for (const folder of folders) {
