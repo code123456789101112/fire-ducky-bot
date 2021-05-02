@@ -31,21 +31,22 @@ export default {
 			}
 		}
 
-		let name: any = null;
-		if (args[0]) name = args[0].toLowerCase();
-		const command: any = commands.get(name as string) || commands.find((c: any) => c.aliases?.includes(name as string));
+		let name: any = args[0]?.toLowerCase();
+		if (name) {
+			const command: any = commands.get(name as string) || commands.find((c: any) => c.aliases?.includes(name as string));
 
-		if (!command) {
-			return message.reply("that's not a valid command!");
+			if (!command) {
+				return message.reply("that's not a valid command!");
+			}
+
+			data.push(`**Name:** ${command.name}`);
+
+			if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(", ")}`);
+			if (command.description) data.push(`**Description:** ${command.description}`);
+			if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
+			if (command.cooldown) data.push(`**Cooldown:** ${command.cooldown} seconds`);
+
+			message.channel.send(data, { split: true });
 		}
-
-		data.push(`**Name:** ${command.name}`);
-
-		if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(", ")}`);
-		if (command.description) data.push(`**Description:** ${command.description}`);
-		if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
-		if (command.cooldown) data.push(`**Cooldown:** ${command.cooldown} seconds`);
-
-		message.channel.send(data, { split: true });
 	},
 };
