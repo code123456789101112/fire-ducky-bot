@@ -5,7 +5,7 @@ import loadDirs from "./loadDirs.js";
 import Keyv from "keyv";
 
 import config from "../config.js";
-const { dbURL } = config;
+const { dbURL, token } = config;
 
 export default class extends Client {
     commands: Collection<string, object>;
@@ -125,5 +125,14 @@ export default class extends Client {
      */
     randomInt(min: number, max: number): number {
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    login() {
+        return super.login(token);
+    }
+
+    async loadDirs() {
+        await this.loadEvents(this);
+        await this.loadCommands(this);
     }
 };
