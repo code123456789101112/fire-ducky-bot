@@ -1,5 +1,6 @@
-import { Collection, Client, ClientOptions, User, GuildMember, Channel, Role } from "discord.js";
+import { Collection, Client, ClientOptions, User, GuildMember, Channel, Role, MessageEmbed } from "discord.js";
 import Message from "./message.js";
+import loadDirs from "./loadDirs.js";
 
 import Keyv from "keyv";
 
@@ -27,6 +28,9 @@ export default class extends Client {
     chlogs: any;
     
     config: { prefix: string; ownerID: string; token: string; dbURL: string; };
+
+    loadEvents: (client: this) => Promise<void>;
+    loadCommands: (client: this) => Promise<void>;
     /**
      * 
      * @param {ClientOptions} options 
@@ -54,7 +58,19 @@ export default class extends Client {
         this.chlogs = false;
 
         this.config = config;
+
+        this.loadEvents = loadDirs.loadEvents;
+        this.loadCommands = loadDirs.loadCommands;
     }
+
+    unhandledRejection(err: Error) {
+        const embed: MessageEmbed = new MessageEmbed()
+            .setTitle("UNHANDLED PROMISE REJECTION!!")
+            .setDescription(`\`\`\`\n${err.stack}\n\`\`\`\n\nFIX IT!!!!`)
+            .setColor("#ff0000");
+        this.users.fetch("704674995284082728").then(user => user.send(embed));
+    }
+
     /**
      * 
      * @param {String} mention 
