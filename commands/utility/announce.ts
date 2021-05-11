@@ -44,7 +44,7 @@ export default {
 			
 			const embed: MessageEmbed = new MessageEmbed()
 				.setTitle(announceArgs[0])
-				.setColor("#00ffdb")
+				.setColor(client.config.themeColor)
 				.setDescription(announceArgs[1]);
 			message.channel.send(embed);
 		}

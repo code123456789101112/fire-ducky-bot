@@ -27,7 +27,7 @@ export default class extends Client {
     wr: any;
     chlogs: any;
     
-    config: { prefix: string; ownerID: string; token: string; dbURL: string; };
+    config: { prefix: string; ownerID: string; token: string; dbURL: string; themeColor: string };
 
     loadEvents: (client: this) => Promise<void>;
     loadCommands: (client: this) => Promise<void>;

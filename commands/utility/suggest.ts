@@ -25,8 +25,7 @@ export default {
         const embed = new MessageEmbed()
             .setTitle(`${message.author.username}'s Suggestion:`)
             .setDescription(suggestion)
-            .setColor("#ff0000")
-            .setThumbnail("https://media.discordapp.net/attachments/781155105063043082/801151243987714058/fire_breathing_rubber_duckies.jpg?width=412&height=412");
+            .setColor(client.config.themeColor);
         (suggestionChannel as TextChannel).send(embed).then(m => {
             m.react("⬆️").then(() => m.react("⬇️"));
         });

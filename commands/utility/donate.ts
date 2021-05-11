@@ -29,7 +29,7 @@ export default {
                             const embed: MessageEmbed = new MessageEmbed()
                                 .setTitle(`${message.author.username}'s donation`)
                                 .setDescription(`${message.author} wants to donate to a ${gawtype}: ${amount}!`)
-                                .setColor("#00ffdb");
+                                .setColor(client.config.themeColor);
                             message.channel.send(`<@&801147084732497971> - <@${message.author.id}>`);
                             return message.channel.send(embed);
                         }).catch(() => {
@@ -44,7 +44,7 @@ export default {
                             const embed: MessageEmbed = new MessageEmbed()
                                 .setTitle(`${message.author.username}'s donation`)
                                 .setDescription(`${message.author} wants to donate to a ${gawtype}: ${amount}!`)
-                                .setColor("#00ffdb")
+                                .setColor(client.config.themeColor)
                             message.channel.send(`<@&801147084732497971> - <@${message.author.id}>`);
                             return message.channel.send(embed);
                         }).catch(() => {
