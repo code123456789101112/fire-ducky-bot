@@ -7,6 +7,8 @@ export default {
      * @param {Client} client 
      */
     async loadEvents(client: Client) {
+        console.log("\n LOADING EVENTS\n________________");
+
         const files: string[] = fs.readdirSync("./events");
         for (const file of files) {
             const event = (await import(`../events/${file.replace(".ts", ".js")}`)).default;
@@ -24,6 +26,8 @@ export default {
      * @param {Client} client
      */
     async loadCommands(client: Client) {
+        console.log(" LOADING COMMANDS\n__________________");
+
         const folders: string[] = fs.readdirSync("./commands/");
         for (const folder of folders) {
             const files: string[] = fs.readdirSync(`./commands/${folder}/`);
