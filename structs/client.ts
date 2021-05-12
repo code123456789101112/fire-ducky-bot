@@ -21,6 +21,8 @@ export default class extends Client {
     cd: Keyv;
 
     afk: Keyv;
+
+    dono: Keyv;
     
     l2l: any;
     ch: any;
@@ -51,6 +53,8 @@ export default class extends Client {
         this.cd = new Keyv(dbURL, { collection: "cooldowns" });
 
         this.afk = new Keyv(dbURL, { collection: "afk" });
+
+        this.dono = new Keyv(dbURL, { collection: "dono" });
 
         this.l2l = false;
         this.ch = false;
