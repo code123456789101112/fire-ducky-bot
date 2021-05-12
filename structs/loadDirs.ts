@@ -7,7 +7,7 @@ export default {
      * @param {Client} client 
      */
     async loadEvents(client: Client) {
-        console.log("\n LOADING EVENTS\n________________");
+        console.log("\n LOADING EVENTS\n----------------");
 
         const files: string[] = fs.readdirSync("./events");
         for (const file of files) {
@@ -26,7 +26,7 @@ export default {
      * @param {Client} client
      */
     async loadCommands(client: Client) {
-        console.log(" LOADING COMMANDS\n__________________");
+        console.log(" LOADING COMMANDS\n------------------");
 
         const folders: string[] = fs.readdirSync("./commands/");
         for (const folder of folders) {
