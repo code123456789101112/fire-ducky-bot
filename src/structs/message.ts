@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 
 import { TextChannel, Collection } from "discord.js";
 import * as Discord from "discord.js";
