@@ -33,5 +33,17 @@ export default {
 
             console.log();
         }
+
+        console.log(" LOADING SLASH COMMANDS\n------------------");
+
+        const slashCmdFiles = fs.readdirSync("./dist/src/slashCommands/");
+        for (const file of slashCmdFiles) {
+            const command = (await import(`../slashCommands/${file.replace(".ts", ".js")}`)).default;
+            client.slashCommands.set(command.info.name, command);
+
+            console.log(`Loaded ${command.info.name} command.`);
+        }
+        
+        console.log();
     }
 };

@@ -11,8 +11,12 @@ import { CooldownInstance, CurrencyInstance, DonationInstance, JobInstance } fro
 import dbObjects from "../db/dbObjects.js";
 const [Cooldowns, Currency, Donations, Jobs] = dbObjects;
 
+import Command, { SlashCommand } from "./command.js";
+
 export default class extends Client {
-    commands: Collection<string, object>; // eslint-disable-line @typescript-eslint/ban-types
+    commands: Collection<string, Command>;
+    slashCommands: Collection<string, SlashCommand>;
+
     cooldowns: Collection<string, Collection<string, number>>;
     
     l2l: boolean;
@@ -34,6 +38,8 @@ export default class extends Client {
         super({ partials: ["MESSAGE", "CHANNEL", "REACTION"], intents: Intents.ALL });
         
         this.commands = new Collection();
+        this.slashCommands = new Collection();
+
         this.cooldowns = new Collection();
         
         this.l2l = false;

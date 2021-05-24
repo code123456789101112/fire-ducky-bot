@@ -1,4 +1,4 @@
-import { PermissionResolvable } from "discord.js";
+import { ApplicationCommandData, CommandInteractionOption, CommandInteraction, PermissionResolvable } from "discord.js";
 
 import Client from "./client";
 import Message from "./message";
@@ -43,6 +43,21 @@ export default class Command implements CommandProperties {
         this.permissions = properties.permissions;
         this.cooldown = properties.cooldown;
 
+        this.execute = properties.execute;
+    }
+}
+
+interface SlashCommandProperties {
+    info: ApplicationCommandData,
+    execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
+}
+
+export class SlashCommand implements SlashCommandProperties {
+    info: ApplicationCommandData;
+    execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
+    
+    constructor(properties: SlashCommandProperties) {
+        this.info = properties.info;
         this.execute = properties.execute;
     }
 }

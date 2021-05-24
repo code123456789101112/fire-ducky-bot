@@ -1,8 +1,9 @@
 import Message from "../../structs/message.js";
 import Client from "../../structs/client.js";
 
+import fs from "fs";
+
 import Command from "../../structs/command.js";
-import { ApplicationCommandData } from "discord.js";
 
 export default new Command({
     name: "deploy",
@@ -11,27 +12,11 @@ export default new Command({
     async execute(client: Client, message: Message) {
         if (!client.application?.owner) await client.application?.fetch();
 
-        const data: ApplicationCommandData = {
-            name: (await import("./ping.js")).default.name,
-            description: (await import("./ping.js")).default.description,
-            options: [{
-                name: "type",
-                type: "STRING",
-                description: "The type of ping to show.",
-                choices: [{
-                    name: "Webscocket Heartbeat",
-                    value: "ws"
-                }, {
-                    name: "Roundtrip Latency",
-                    value: "rtp"
-                }],
-                required: false
-            }]
-        };
+        const commandFiles = fs.readdirSync("./dist/src/slashCommands/");
+        const commandInfo = await Promise.all(commandFiles.map(async file => (await import(`../../slashCommands/${file}`)).default.info));
 
-        const command = await client.application?.commands.create(data);
-        console.log(command);
+        client.application?.commands.set(commandInfo);
 
-        message.channel.send("done");
+        message.reply("done");
     }
 });
