@@ -1,18 +1,30 @@
 {
   "dependencies": {
     "@keyv/mongo": "^1.1.0",
+    "@types/require-all": "^3.0.1",
+    "@types/sequelize": "^4.28.9",
     "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
     "keyv": "^4.0.3",
-    "parse-ms": "^2.1.0"
+    "mariadb": "^2.5.3",
+    "parse-ms": "^2.1.0",
+    "require-all": "^3.0.0",
+    "requireall": "^1.0.0",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
-    "@types/keyv": "^3.1.1"
+    "@types/keyv": "^3.1.1",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "eslint": "^7.26.0"
   },
   "scripts": {
-    "n": "node dist/index.js",
-    "s": "pm2 start dist/index.js",
-    "st": "pm2 stop dist/index.js",
-    "git": "git add . && git commit -m \"Commit\" && git push origin main"
+    "n": "node dist/src/index.js",
+    "s": "pm2 start dist/src/index.js",
+    "st": "pm2 stop dist/src/index.js",
+    "initdb": "node dist/src/db/dbInit.js -f",
+    "git": "git add . && git commit -m \"Commit\" && git push origin main",
+    "lint": "eslint . --ext .ts"
   },
   "type": "module"
 }
