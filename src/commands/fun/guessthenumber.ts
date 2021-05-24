@@ -15,8 +15,11 @@ export default new Command({
         const num: number = Math.round(Math.random() * 500);
         let guessedNum: number;
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const filter: any = (m: Message) => m.author.id == message.author.id;
+
         function guessTheNumber() {
-            message.channel.awaitMessages((m: Message) => m.author.id == message.author.id,
+            message.channel.awaitMessages(filter,
                 { max: 1, time: 60000 }).then((collected: Collection<string, Discord.Message>) => {
                     if (isNaN(parseInt((collected.first() as Message).content))) {
                         return message.channel.send("Bro that's not even a number, ending the game.");

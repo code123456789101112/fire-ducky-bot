@@ -113,7 +113,8 @@ export default new Command({
         const play = () => {
             gameEmbed();
 
-            const filter: CollectorFilter = (m: Message) => m.author.id === message.author.id && /^(h|s|e)/i.test(m.content);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const filter: CollectorFilter<any> = (m: Message) => m.author.id === message.author.id && /^(h|s|e)/i.test(m.content);
             message.channel.awaitMessages(filter, { max: 1, time: 15000 }).then((collected: Collection<string, Discord.Message>) => {
                 if ((collected.first() as Message).content.toLowerCase().startsWith("h")) {
                     userCards.push(deal());

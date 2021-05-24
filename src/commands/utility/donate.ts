@@ -14,12 +14,14 @@ export default new Command({
         let amount: string;
        
         message.channel.send("Do you want to donate to a giveaway or a heist?");
-        message.channel.awaitMessages((m: Message) => m.author.id === message.author.id,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        message.channel.awaitMessages(((m: Message) => m.author.id === message.author.id) as any,
             { max: 1, time: 30000 }).then((collected: Collection<string, Discord.Message>) => {
                 if ((collected.first() as Message).content.toLowerCase() === "giveaway") {
                     gawtype = "giveaway";
                     message.channel.send("What is your giveaway for? Explain everything including amount, time, amount of winners, etc.");
-                    message.channel.awaitMessages((m: Message) => m.author.id == message.author.id,
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    message.channel.awaitMessages(((m: Message) => m.author.id == message.author.id) as any,
                         { max: 1, time: 60000 }).then((messages: Collection<string, Discord.Message>) => {
                             amount = (messages.first() as Message).content;
                             const embed: MessageEmbed = new MessageEmbed()
@@ -34,7 +36,8 @@ export default new Command({
                 } else if ((collected.first() as Message).content.toLowerCase() === "heist") {
                     gawtype = "heist";
                     message.channel.send("How much should the heist be? It can't be too much because of limited bank space and can't be too little because then it's not fun.");
-                    message.channel.awaitMessages((m: Message) => m.author.id == message.author.id,
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    message.channel.awaitMessages(((m: Message) => m.author.id == message.author.id) as any,
                         { max: 1, time: 60000 }).then((messages: Collection<string, Discord.Message>) => {
                             amount = (messages.first() as Message).content;
                             const embed: MessageEmbed = new MessageEmbed()

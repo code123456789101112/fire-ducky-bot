@@ -42,7 +42,8 @@ export default new Command({
 
         message.channel.send("Okay, pick: rock (`r`), paper (`p`), or scissors (`s`)");
 
-        const filter = (m: Message) => m.author.id === message.author.id && /^(r|p|s)/i.test(m.content);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const filter: any = (m: Message) => m.author.id === message.author.id && /^(r|p|s)/i.test(m.content);
         message.channel.awaitMessages(filter, { max: 1, time: 15000, errors: ["time"] }).then(async (collected: Collection<string, Discord.Message>) => {
             const content = (collected.first() as Message).content.toLowerCase();
 

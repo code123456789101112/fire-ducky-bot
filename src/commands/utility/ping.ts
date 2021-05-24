@@ -7,10 +7,15 @@ export default new Command({
 	name: "ping",
 	description: "Shows the bot's ping.",
 	cooldown: 10,
-	execute(_client: Client, message: Message): void {
-		message.channel.send("Pinging...").then(m => {
-			const ping = m.createdTimestamp - message.createdTimestamp;
-			m.edit(`Pong! \`${ping}ms\``);
-		});
+	async execute(client: Client, message: Message, args: string[]): Promise<void> {
+		const [type] = args;
+
+		if (type && /^ws$/i.test(type)) {
+			message.reply(`Pong! \`${client.ws.ping}ms\``);
+		} else if (type && /^rtp$/i.test(type)) {
+			const m = await message.reply("Pong!");
+	
+			await m.edit(`Pong! \`${m.createdTimestamp - message.createdTimestamp}ms\``);
+		} else await message.reply("Pong!");
 	}
 });

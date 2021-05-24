@@ -3,7 +3,7 @@
     "@keyv/mongo": "^1.1.0",
     "@types/require-all": "^3.0.1",
     "@types/sequelize": "^4.28.9",
-    "discord.js": "^12.5.3",
+    "discord.js": "github:discordjs/discord.js",
     "dotenv": "^10.0.0",
     "keyv": "^4.0.3",
     "mariadb": "^2.5.3",

@@ -11,7 +11,8 @@ export default new Command({
     permissions: ["ADMINISTRATOR"],
     execute(_client: Client, message: Message): void {
         message.channel.send("Okay, watching for a heist in this channel.");
-        message.channel.awaitMessages((m: Message) => m.author.id === "270904126974590976" && m.content.includes("is starting a bank robbery. They're trying to break into") && m.content.includes("Join them by typing `JOIN HEIST` soon!"),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        message.channel.awaitMessages(((m: Message) => m.author.id === "270904126974590976" && m.content.includes("is starting a bank robbery. They're trying to break into") && m.content.includes("Join them by typing `JOIN HEIST` soon!")) as any,
             { max: 1, time: 60000 }).then(() => {
                 message.channel.send("Success, unlocking channel");
                 (message.channel as TextChannel).updateOverwrite((message.guild as Guild).roles.everyone, { SEND_MESSAGES: true });

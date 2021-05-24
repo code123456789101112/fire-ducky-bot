@@ -1,4 +1,4 @@
-import { Collection, Client, User, GuildMember, Channel, Role, VoiceChannel, TextChannel } from "discord.js";
+import { Collection, Client, User, GuildMember, Channel, Role, VoiceChannel, TextChannel, Intents } from "discord.js";
 
 import Message from "./message.js";
 import loadDirs from "./loadDirs.js";
@@ -31,7 +31,7 @@ export default class extends Client {
     Jobs: ModelCtor<JobInstance>;
 
     constructor() {
-        super({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
+        super({ partials: ["MESSAGE", "CHANNEL", "REACTION"], intents: Intents.ALL });
         
         this.commands = new Collection();
         this.cooldowns = new Collection();
@@ -66,7 +66,7 @@ export default class extends Client {
         return await message.guild?.members.fetch(matches[1]);
     }
 
-    async getChannelFromMention(mention: string): Promise<Channel | void> {
+    async getChannelFromMention(mention: string): Promise<Channel | null | void> {
         const matches: string[] | null = mention.match(/^<#(\d+)>$/);
         if (!matches) return;
 
