@@ -35,6 +35,7 @@ export default new SlashCommand({
         }]
 
     },
+    cooldown: 1800,
     async execute(client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) {
         const embed: MessageEmbed = new MessageEmbed()
             .setTitle(`${interaction.user.tag} wants to donate to a giveaway!!`)

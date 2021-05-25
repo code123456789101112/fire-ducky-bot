@@ -21,8 +21,8 @@
   },
   "scripts": {
     "n": "node dist/src/index.js",
-    "s": "pm2 start dist/src/index.js",
-    "st": "pm2 stop dist/src/index.js",
+    "s": "forever start dist/src/index.js",
+    "st": "forever stop dist/src/index.js",
     "initdb": "node dist/src/db/dbInit.js -f",
     "git": "git add . && git commit -m \"Commit\" && git push origin main",
     "lint": "eslint . --ext .ts"
