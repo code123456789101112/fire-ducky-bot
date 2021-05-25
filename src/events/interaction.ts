@@ -30,7 +30,7 @@ export default async (client: Client, interaction: Interaction): Promise<void> =
 
       if (now < expirationTime) {
         const timeLeft: Parsed = ms(expirationTime - now);
-        return interaction.reply(`Please wait ${timeLeft.minutes}m ${timeLeft.seconds}s before reusing the \`${command.data.name}\` command.`);
+        return interaction.reply(`Please wait ${timeLeft.minutes}m ${timeLeft.seconds}s before reusing the \`${command.data.name}\` command.`, { ephemeral: true });
       }
     }
 
