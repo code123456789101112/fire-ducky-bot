@@ -52,6 +52,21 @@ export default new SlashCommand({
                 type: "STRING",
                 required: false
             }]
+        }, {
+            name: "event",
+            description: "Donate to an event.",
+            type: "SUB_COMMAND",
+            options: [{
+                name: "type",
+                description: "The type of event to donate to.",
+                type: "STRING",
+                required: true
+            }, {
+                name: "message",
+                description: "Your message for the event.",
+                type: "STRING",
+                required: false
+            }]
         }]
     },
     cooldown: 600,
@@ -82,7 +97,7 @@ export default new SlashCommand({
                 embeds: [embed],
                 allowedMentions: { parse: ["roles", "users", "everyone"] }
             });
-        } else {
+        } else if (args[0].name === "heist") {
             const options = args[0].options as CommandInteractionOption[];
 
             const embed: MessageEmbed = new MessageEmbed()
@@ -93,6 +108,20 @@ export default new SlashCommand({
             if (options[1]?.value) embed.addField("Message:", options[1].value as string);
 
             await interaction.reply("<@&824272561009328140>", {
+                embeds: [embed],
+                allowedMentions: { parse: ["roles", "users", "everyone"] }
+            });
+        } else {
+            const options = args[0].options as CommandInteractionOption[];
+
+            const embed: MessageEmbed = new MessageEmbed()
+                .setTitle(`${interaction.user.tag} wants to donate to an event!!`)
+                .addField("Type", options[0].value as string)
+                .setColor("#00ff00")
+                .setFooter("Thank you for your kind donation!!");
+            if (options[1]?.value) embed.addField("Message:", options[1].value as string);
+
+            await interaction.reply("<@&824272561009328147>", {
                 embeds: [embed],
                 allowedMentions: { parse: ["roles", "users", "everyone"] }
             });
