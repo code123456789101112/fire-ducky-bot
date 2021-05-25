@@ -1,5 +1,7 @@
 import fs from "fs";
+
 import Client from "./client.js";
+import Command, { SlashCommand } from "./command.js";
 
 export default {
     async loadEvents(client: Client): Promise<void> {
@@ -25,7 +27,7 @@ export default {
         for (const folder of folders) {
             const files: string[] = fs.readdirSync(`./dist/src/commands/${folder}/`);
             for (const file of files) {
-                const command = (await import(`../commands/${folder}/${file.replace(".ts", ".js")}`)).default;
+                const command: Command = (await import(`../commands/${folder}/${file.replace(".ts", ".js")}`)).default;
                 client.commands.set(command.name, command);
 
                 console.log(`Loaded ${command.name} command.`);
@@ -38,10 +40,10 @@ export default {
 
         const slashCmdFiles = fs.readdirSync("./dist/src/slashCommands/");
         for (const file of slashCmdFiles) {
-            const command = (await import(`../slashCommands/${file.replace(".ts", ".js")}`)).default;
-            client.slashCommands.set(command.info.name, command);
+            const command: SlashCommand = (await import(`../slashCommands/${file.replace(".ts", ".js")}`)).default;
+            client.slashCommands.set(command.data.name, command);
 
-            console.log(`Loaded ${command.info.name} command.`);
+            console.log(`Loaded ${command.data.name} command.`);
         }
         
         console.log();
