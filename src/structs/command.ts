@@ -48,16 +48,16 @@ export default class Command implements CommandProperties {
 }
 
 interface SlashCommandProperties {
-    info: ApplicationCommandData,
+    data: ApplicationCommandData,
     execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
 }
 
 export class SlashCommand implements SlashCommandProperties {
-    info: ApplicationCommandData;
+    data: ApplicationCommandData;
     execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
     
     constructor(properties: SlashCommandProperties) {
-        this.info = properties.info;
+        this.data = properties.data;
         this.execute = properties.execute;
     }
 }

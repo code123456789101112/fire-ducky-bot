@@ -4,7 +4,7 @@ import { SlashCommand } from "../structs/command.js";
 import Client from "../structs/client.js";
 
 export default new SlashCommand({
-    info: {
+    data: {
         name: "ping",
         description: "Shows the bot's ping.",
         options: [{
