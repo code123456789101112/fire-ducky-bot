@@ -55,6 +55,9 @@ export default new SlashCommand({
             .setFooter("Thank you for your kind donation!!");
         if (args[4]?.value) embed.addField("Message:", args[4].value as string);
             
-        await interaction.reply(`<@&${client.config.ids.roles.giveaway}>`, { embeds: [embed] });
+        await interaction.reply(`<@&${client.config.ids.roles.giveaway}>`, {
+            embeds: [embed],
+            allowedMentions: { parse: ["roles", "users", "everyone"] }
+        });
     }   
 });
