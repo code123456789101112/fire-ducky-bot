@@ -1,5 +1,5 @@
-import Config from "../config.js";
-const { dbName, username, password } = (new Config()).db;
+import config from "../config.js";
+const { dbName, username, password } = config.db;
 
 import fs from "fs";
 

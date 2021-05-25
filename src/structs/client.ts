@@ -3,7 +3,7 @@ import { Collection, Client, User, GuildMember, Channel, Role, VoiceChannel, Tex
 import Message from "./message.js";
 import loadDirs from "./loadDirs.js";
 
-import Config from "../config.js";
+import config, { Config } from "../config.js";
 
 import { ModelCtor } from "sequelize";
 import { CooldownInstance, CurrencyInstance, DonationInstance, JobInstance } from "../interfaces/dbInterfaces.js";
@@ -47,7 +47,7 @@ export default class extends Client {
         this.wr = false;
         this.chlogs = false;
         
-        this.config = new Config();
+        this.config = config;
         
         this.loadEvents = loadDirs.loadEvents;
         this.loadCommands = loadDirs.loadCommands;
