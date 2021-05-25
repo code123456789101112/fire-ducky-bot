@@ -12,7 +12,6 @@ const sequelize: Sequelize = new Sequelize(dbName, username, password, {
 const modelFiles: string[] = fs.readdirSync("./dist/src/models/");
 
 const models = modelFiles.map(async model => {
-    console.log("test");
     const modelName = model.replace(".ts", ".js");
     return (await import(`../models/${modelName}`)).default(sequelize);
 });

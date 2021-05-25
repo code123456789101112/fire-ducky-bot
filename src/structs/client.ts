@@ -1,4 +1,4 @@
-import { Collection, Client, User, GuildMember, Channel, Role, VoiceChannel, TextChannel, Intents } from "discord.js";
+import Discord, { Collection, User, GuildMember, Channel, Role, VoiceChannel, TextChannel, Intents } from "discord.js";
 
 import Message from "./message.js";
 import loadDirs from "./loadDirs.js";
@@ -12,8 +12,9 @@ import dbObjects from "../db/dbObjects.js";
 const [Cooldowns, Currency, Donations, Jobs] = dbObjects;
 
 import Command, { SlashCommand } from "./command.js";
+import { ClientProperties } from "../interfaces/clientInterface.js";
 
-export default class extends Client {
+export default class Client extends Discord.Client implements ClientProperties {
     commands: Collection<string, Command>;
     slashCommands: Collection<string, SlashCommand>;
 
@@ -25,9 +26,6 @@ export default class extends Client {
     chlogs: boolean | TextChannel;
 
     config: Config
-
-    loadEvents: (client: this) => Promise<void>;
-    loadCommands: (client: this) => Promise<void>;
 
     Cooldowns: ModelCtor<CooldownInstance>;
     Currency: ModelCtor<CurrencyInstance>;
@@ -48,9 +46,6 @@ export default class extends Client {
         this.chlogs = false;
         
         this.config = config;
-        
-        this.loadEvents = loadDirs.loadEvents;
-        this.loadCommands = loadDirs.loadCommands;
         
         this.Cooldowns = Cooldowns;
         this.Currency = Currency;
@@ -91,7 +86,7 @@ export default class extends Client {
     }
 
     async loadDirs(): Promise<void> {
-        await this.loadEvents(this);
-        await this.loadCommands(this);
+        await loadDirs.loadEvents(this);
+        await loadDirs.loadCommands(this);
     }
 }
