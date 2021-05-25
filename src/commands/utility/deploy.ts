@@ -11,8 +11,8 @@ export default new Command({
     async execute(client: Client, message: Message) {
         if (!client.application?.owner) await client.application?.fetch();
 
-        const commandInfo: ApplicationCommandData[] = client.slashCommands.map(command => command.data);
-        await message.guild?.commands.set(commandInfo);
+        const commandData: ApplicationCommandData[] = client.slashCommands.map(command => command.data);
+        await message.guild?.commands.set(commandData);
 
         message.reply("done");
     }
