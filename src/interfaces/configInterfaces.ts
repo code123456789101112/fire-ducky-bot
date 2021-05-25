@@ -27,5 +27,6 @@ export interface IDsProperties {
 		announce: string;
 		misc: string;
 		update: string;
+		giveaway: string;
 	}
 }

@@ -35,7 +35,7 @@ export default new SlashCommand({
         }]
 
     },
-    async execute(_client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) {
+    async execute(client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) {
         const embed: MessageEmbed = new MessageEmbed()
             .setTitle(`${interaction.user.tag} wants to donate to a giveaway!!`)
             .addFields({
@@ -55,6 +55,6 @@ export default new SlashCommand({
             .setFooter("Thank you for your kind donation!!");
         if (args[4]?.value) embed.addField("Message:", args[4].value as string);
             
-        await interaction.reply(embed);
+        await interaction.reply(`<@&${client.config.ids.roles.giveaway}>`, { embeds: [embed] });
     }   
 });
