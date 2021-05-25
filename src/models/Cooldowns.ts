@@ -1,5 +1,5 @@
 import types, { Sequelize } from "sequelize";
-import { CooldownInstance } from "../db/dbInterfaces.js";
+import { CooldownInstance } from "../interfaces/dbInterfaces.js";
 
 export default (sequelize: Sequelize): unknown => {
     return sequelize.define<CooldownInstance>("cooldowns", {

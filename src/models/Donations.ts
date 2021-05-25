@@ -1,5 +1,5 @@
 import types, { Sequelize } from "sequelize";
-import { DonationInstance } from "../db/dbInterfaces";
+import { DonationInstance } from "../interfaces/dbInterfaces";
 
 export default (sequelize: Sequelize): unknown => {
     return sequelize.define<DonationInstance>("donations", {

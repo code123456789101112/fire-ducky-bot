@@ -1,5 +1,5 @@
 import { User } from "discord.js";
-import { DonationInstance } from "../../db/dbInterfaces.js";
+import { DonationInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";

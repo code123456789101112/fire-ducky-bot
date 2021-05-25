@@ -1,5 +1,5 @@
 import types, { Sequelize } from "sequelize";
-import { JobInstance } from "../db/dbInterfaces";
+import { JobInstance } from "../interfaces/dbInterfaces";
 
 export default (sequelize: Sequelize): unknown => {
     return sequelize.define<JobInstance>("jobs", {

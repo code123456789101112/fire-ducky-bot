@@ -1,21 +1,38 @@
 import { ApplicationCommandData, CommandInteractionOption, CommandInteraction, PermissionResolvable } from "discord.js";
+import { BaseCommandProperties, CommandProperties, SlashCommandProperties } from "../interfaces/commandInterfaces";
 
 import Client from "./client";
 import Message from "./message";
 
-interface CommandProperties {
-    name: string,
-    description: string,
-    usage?: string,
-    aliases?: string[],
-    permissions?: PermissionResolvable,
-    guildOnly?: boolean,
-    devOnly?: boolean,
-    cooldown?: number,
-    execute(client: Client, message: Message, args: string[]): unknown | Promise<unknown>
+
+class BaseCommand implements BaseCommandProperties {
+    cooldown?: number;
+    permissions?: PermissionResolvable;
+    guildOnly?: boolean;
+    devOnly?: boolean;
+
+    constructor(properties: BaseCommandProperties) {
+        this.cooldown = properties.cooldown;
+        this.devOnly = properties.devOnly;
+        this.guildOnly = properties.guildOnly;
+        this.permissions = properties.permissions;
+    }
 }
 
-export default class Command implements CommandProperties {
+export class SlashCommand extends BaseCommand implements SlashCommandProperties {
+    data: ApplicationCommandData;
+    execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
+    
+    constructor(properties: SlashCommandProperties) {
+        const { cooldown, guildOnly, devOnly, permissions } = properties;
+        super({ cooldown, guildOnly, devOnly, permissions });
+
+        this.data = properties.data;
+        this.execute = properties.execute;
+    }
+}
+
+export default class Command extends BaseCommand implements CommandProperties {
     name: string;
     aliases: string[] | undefined;
 
@@ -31,33 +48,15 @@ export default class Command implements CommandProperties {
     execute: (client: Client, message: Message, args: string[]) => unknown;
     
     constructor(properties: CommandProperties) {
+        const { cooldown, guildOnly, devOnly, permissions } = properties;
+        super({ cooldown, guildOnly, devOnly, permissions });
+
         this.name = properties.name;
         this.aliases = properties.aliases;
 
         this.description = properties.description;
         this.usage = properties.usage;
-        
-        this.guildOnly = properties.guildOnly;
-        this.devOnly = properties.devOnly;
-        
-        this.permissions = properties.permissions;
-        this.cooldown = properties.cooldown;
 
-        this.execute = properties.execute;
-    }
-}
-
-interface SlashCommandProperties {
-    data: ApplicationCommandData,
-    execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
-}
-
-export class SlashCommand implements SlashCommandProperties {
-    data: ApplicationCommandData;
-    execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
-    
-    constructor(properties: SlashCommandProperties) {
-        this.data = properties.data;
         this.execute = properties.execute;
     }
 }

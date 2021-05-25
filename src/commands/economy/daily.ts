@@ -1,5 +1,5 @@
 import ms from "parse-ms";
-import { CooldownInstance, CurrencyInstance } from "../../db/dbInterfaces.js";
+import { CooldownInstance, CurrencyInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";

@@ -6,7 +6,7 @@ import loadDirs from "./loadDirs.js";
 import Config from "../config.js";
 
 import { ModelCtor } from "sequelize";
-import { CooldownInstance, CurrencyInstance, DonationInstance, JobInstance } from "../db/dbInterfaces.js";
+import { CooldownInstance, CurrencyInstance, DonationInstance, JobInstance } from "../interfaces/dbInterfaces.js";
 
 import dbObjects from "../db/dbObjects.js";
 const [Cooldowns, Currency, Donations, Jobs] = dbObjects;

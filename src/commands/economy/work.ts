@@ -1,7 +1,7 @@
 import ms from "parse-ms";
 
 import { MessageEmbed } from "discord.js";
-import { CurrencyInstance, JobInstance, CooldownInstance } from "../../db/dbInterfaces.js";
+import { CurrencyInstance, JobInstance, CooldownInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";

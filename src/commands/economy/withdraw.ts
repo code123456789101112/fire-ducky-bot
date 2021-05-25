@@ -1,4 +1,4 @@
-import { CurrencyInstance } from "../../db/dbInterfaces.js";
+import { CurrencyInstance } from "../../interfaces/dbInterfaces.js";
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
 

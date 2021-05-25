@@ -1,5 +1,5 @@
 import types, { Sequelize } from "sequelize";
-import { CurrencyInstance } from "../db/dbInterfaces.js";
+import { CurrencyInstance } from "../interfaces/dbInterfaces.js";
 
 export default (sequelize: Sequelize): unknown => {
     return sequelize.define<CurrencyInstance>("currency", {
