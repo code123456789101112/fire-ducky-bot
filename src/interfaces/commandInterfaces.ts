@@ -11,7 +11,7 @@ export interface BaseCommandProperties {
 
 export interface SlashCommandProperties extends BaseCommandProperties {
     data: ApplicationCommandData;
-    permissions?: ApplicationCommandPermissionData;
+    permissions?: ApplicationCommandPermissionData[];
     execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
 }
 

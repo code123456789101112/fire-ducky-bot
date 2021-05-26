@@ -19,7 +19,7 @@ class BaseCommand implements BaseCommandProperties {
 
 export class SlashCommand extends BaseCommand implements SlashCommandProperties {
     data: ApplicationCommandData;
-    permissions: ApplicationCommandPermissionData | undefined;
+    permissions: ApplicationCommandPermissionData[] | undefined;
     execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
     
     constructor(properties: SlashCommandProperties) {
