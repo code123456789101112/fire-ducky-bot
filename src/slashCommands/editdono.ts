@@ -1,6 +1,6 @@
 import { CommandInteraction, CommandInteractionOption } from "discord.js";
-import Client from "../structs/client";
-import { SlashCommand } from "../structs/command";
+import Client from "../structs/client.js";
+import { SlashCommand } from "../structs/command.js";
 
 export default new SlashCommand({
     data: {
@@ -16,7 +16,7 @@ export default new SlashCommand({
                 type: "USER"
             }, {
                 name: "amount",
-                description: "The amount to dincrease by.",
+                description: "The amount to increase by.",
                 type: "INTEGER"
             }]
         }, {
