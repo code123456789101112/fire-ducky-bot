@@ -1,7 +1,8 @@
 import { CommandInteraction, CommandInteractionOption, User } from "discord.js";
+import { SlashCommand } from "../structs/command.js";
+
 import { DonationInstance } from "../interfaces/dbInterfaces.js";
 import Client from "../structs/client.js";
-import { SlashCommand } from "../structs/command.js";
 
 export default new SlashCommand({
     data: {
