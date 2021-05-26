@@ -43,7 +43,7 @@ export default new Command({
                 await userMoney.increment("bal", { by: userJobs.salary });
                 await userMoney.increment("bankSpace", { by: 500 });
 
-                message.channel.send(`You worked as a ${userJobs} and earned ${userJobs.salary}!`);
+                message.channel.send(`You worked as a ${userJobs.job} and earned ${userJobs.salary}!`);
             }
         } else if (args[0] === "list") {
             const embed: MessageEmbed = new MessageEmbed()
