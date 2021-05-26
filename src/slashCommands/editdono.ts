@@ -6,7 +6,7 @@ import { SlashCommand } from "../structs/command.js";
 export default new SlashCommand({
     data: {
         name: "editdono",
-        description: "Edits donation amounts",
+        description: "Edits donation amounts.",
         options: [{
             name: "increase",
             description: "Increase someone's donation amount.",
