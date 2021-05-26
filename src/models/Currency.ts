@@ -9,17 +9,17 @@ export default (sequelize: Sequelize): unknown => {
             primaryKey: true
         },
         bal: {
-			type: types.DataTypes.INTEGER,
+			type: types.DataTypes.BIGINT,
 			defaultValue: 0,
 			allowNull: false,
 		},
         bank: {
-            type: types.DataTypes.INTEGER,
+            type: types.DataTypes.BIGINT,
             defaultValue: 0,
             allowNull: false
         },
         bankSpace: {
-            type: types.DataTypes.INTEGER,
+            type: types.DataTypes.BIGINT,
             defaultValue: 1000,
             allowNull: false
         }

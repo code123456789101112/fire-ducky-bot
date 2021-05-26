@@ -45,6 +45,7 @@ export default new SlashCommand({
         type: "ROLE",
         permission: true
     }],
+    cooldown: 5,
     async execute(client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) {
         const options: CommandInteractionOption[] = args[0].options as CommandInteractionOption[];
         

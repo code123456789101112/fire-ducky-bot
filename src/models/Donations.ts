@@ -9,7 +9,7 @@ export default (sequelize: Sequelize): unknown => {
             primaryKey: true
         },
         amount: {
-            type: types.DataTypes.INTEGER,
+            type: types.DataTypes.BIGINT,
             defaultValue: 0,
             allowNull: false
         }
