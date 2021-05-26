@@ -16,7 +16,7 @@ export default new Command({
         await message.guild?.commands.set(commandData);
 
         const permissionCommands = client.slashCommands.filter(command => !!command.permissions);
-        if (permissionCommands) {
+        if (permissionCommands.size) {
             const permissionData = permissionCommands.map(command => {
                 const { id } = message.guild?.commands.cache.find(c => c.name === command.data.name) as ApplicationCommand;
                 const permissions = command.permissions as ApplicationCommandPermissionData[];
