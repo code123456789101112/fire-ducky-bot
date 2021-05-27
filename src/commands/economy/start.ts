@@ -20,6 +20,6 @@ export default new Command({
             bankSpace: 1000
         });
 
-        message.author.send("Welcome to the currency system! There are many commands, so use `=help` to see them all!");
+        message.reply("Welcome to the currency system! There are many commands, so use `=help` to see them all!");
     }
 });
