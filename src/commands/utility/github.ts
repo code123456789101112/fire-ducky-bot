@@ -7,6 +7,6 @@ export default new Command({
     aliases: ["repo"],
     description: "Gives link to repo.",
     execute(_client: Client, message: Message) {
-        message.reply("https://github.com/code123456789101112/discord-bot");
+        message.reply("<https://github.com/code123456789101112/discord-bot>");
     }
 });
