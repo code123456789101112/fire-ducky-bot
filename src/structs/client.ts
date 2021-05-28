@@ -33,7 +33,7 @@ export default class Client extends Discord.Client implements ClientProperties {
     Jobs: ModelCtor<JobInstance>;
 
     constructor() {
-        super({ partials: ["MESSAGE", "CHANNEL", "REACTION"], intents: Intents.ALL });
+        super({ partials: ["MESSAGE", "CHANNEL", "REACTION"], intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.DIRECT_MESSAGES] });
         
         this.commands = new Collection();
         this.slashCommands = new Collection();
