@@ -62,6 +62,11 @@ export default new SlashCommand({
                 type: "STRING",
                 required: true
             }, {
+                name: "prize",
+                description: "The prize for the event.",
+                type: "STRING",
+                required: true
+            }, {
                 name: "message",
                 description: "Your message for the event.",
                 type: "STRING",
@@ -116,7 +121,7 @@ export default new SlashCommand({
 
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.tag} wants to donate to an event!!`)
-                .addField("Type", options[0].value as string)
+                .addFields({ name: "Type", value: options[0].value as string }, { name: "Prize", value: options[1].value as string })
                 .setColor("#00ff00")
                 .setFooter("Thank you for your kind donation!!");
             if (options[1]?.value) embed.addField("Message:", options[1].value as string);
