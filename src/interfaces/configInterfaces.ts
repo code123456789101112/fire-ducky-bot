@@ -1,11 +1,7 @@
 export interface ConfigProperties {
 	token: string;
 
-	db: {
-		dbName: string;
-		username: string;
-		password: string;
-	}
+	db: string
 
 	prefix: string;
 	themeColor: string;

@@ -21,7 +21,7 @@ export default new Command({
 				.setTitle(announceArgs[0])
 				.setColor(client.config.themeColor)
 				.setDescription(announceArgs[1]);
-			message.channel.send(embed);
+			message.channel.send({ embeds: [embed] });
 		} else {
 			if (announceArgs[3] === "announce") {
 				ping = `<@&${client.config.ids.roles.announce}>`;
@@ -42,7 +42,7 @@ export default new Command({
 				.setTitle(announceArgs[0])
 				.setColor(client.config.themeColor)
 				.setDescription(announceArgs[1]);
-			message.channel.send(embed);
+			message.channel.send({ embeds: [embed] });
 		}
 	}
 });

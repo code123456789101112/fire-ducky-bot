@@ -1,5 +1,3 @@
-import { CurrencyInstance } from "../../interfaces/dbInterfaces.js";
-
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
 
@@ -10,12 +8,18 @@ export default new Command({
 	cooldown: 15,
 	description: "Currency command which raises balance by random number.",
 	async execute(client: Client, message: Message): Promise<unknown> {
-		const userMoney: CurrencyInstance | null = await client.Currency.findOne({ where: { id: message.author.id } });
+		const userMoney = await client.Currency.findByIdOrCreate(message.author.id, {
+			_id: message.author.id,
+			bal: 0,
+			bank: 0,
+			bankSpace: 1000
+		});
 
 		if (!userMoney) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
 
-		const random: number = client.randomInt(5, 400);
-		await userMoney.increment("bal", { by: random });
+		const random = client.randomInt(5, 400);
+		userMoney.bal += random;
+		await userMoney.save();
 
 		message.channel.send(`You begged and received ${random} coins!`);
 	}

@@ -23,7 +23,7 @@ export default new Command({
             if (typeof evaled !== "string")
                 evaled = inspect(evaled);
         
-            message.channel.send(clean(evaled), { code:"xl" });
+            message.channel.send({ content: clean(evaled) as string, code: "xl" });
         } catch (err) {
             message.author.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
         }

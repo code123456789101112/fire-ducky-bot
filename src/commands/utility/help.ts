@@ -18,7 +18,7 @@ export default new Command({
 			data.push(`\nYou can send \`${client.config.prefix}help [command name]\` (without the brackets obviously) to get info on a specific command!`);
 
 			try {
-				await message.author.send(data, { split: true });
+				await message.author.send({ content: data.join("\n"), split: true });
 				if (message.channel.type === "dm") return;
 				message.reply("I've sent you a DM with all my commands!");
 			} catch (error) {
@@ -40,7 +40,7 @@ export default new Command({
 			if (command.usage) data.push(`**Usage:** ${client.config.prefix + command.name} ${command.usage}`);
 			if (command.cooldown) data.push(`**Cooldown:** ${command.cooldown} seconds`);
 
-			message.channel.send(data, { split: true });
+			message.channel.send({ content: data.join("\n"), split: true });
 		}
 	},
 });

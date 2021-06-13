@@ -1,4 +1,4 @@
-import { ApplicationCommandData, CommandInteractionOption, CommandInteraction, PermissionResolvable, ApplicationCommandPermissionData } from "discord.js";
+import { ApplicationCommandData, CommandInteractionOption, CommandInteraction, PermissionResolvable, ApplicationCommandPermissionData, Collection } from "discord.js";
 import { BaseCommandProperties, CommandProperties, SlashCommandProperties } from "../interfaces/commandInterfaces";
 
 import Client from "./client";
@@ -20,7 +20,7 @@ class BaseCommand implements BaseCommandProperties {
 export class SlashCommand extends BaseCommand implements SlashCommandProperties {
     data: ApplicationCommandData;
     permissions: ApplicationCommandPermissionData[] | undefined;
-    execute: (client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) => unknown;
+    execute: (client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) => unknown;
     
     constructor(properties: SlashCommandProperties) {
         const { cooldown, guildOnly, devOnly } = properties;

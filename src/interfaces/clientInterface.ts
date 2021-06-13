@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Collection, VoiceChannel, TextChannel, User, GuildMember, Channel, Role } from "discord.js";
 
 import Command, { SlashCommand } from "../structs/command";
 import { Config } from "../config";
 
-import { CooldownInstance, CurrencyInstance, DonationInstance, JobInstance } from "./dbInterfaces";
-import { ModelCtor } from "sequelize/types";
+import { Model } from "mongoose";
 
 import Message from "../structs/message";
 
@@ -21,10 +21,10 @@ export interface ClientProperties {
 
     config: Config
 
-    Cooldowns: ModelCtor<CooldownInstance>;
-    Currency: ModelCtor<CurrencyInstance>;
-    Donations: ModelCtor<DonationInstance>;
-    Jobs: ModelCtor<JobInstance>;
+    Cooldowns: Model<any, any, any>;
+    Currency: Model<any, any, any>;
+    Donations: Model<any, any, any>;
+    Jobs: Model<any, any, any>;
 
     getUserFromMention(mention: string): Promise<void | User>;
     getMemberFromMention(message: Message, mention: string): Promise<void | GuildMember>;

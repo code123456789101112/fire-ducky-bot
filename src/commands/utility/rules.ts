@@ -18,7 +18,7 @@ export default new Command({
                 .setTitle("Server Rules")
                 .setColor("#00ffdb")
                 .setDescription(rule.join("\n"));
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         } else {
             const num: number = parseInt(args[0]) - 1;
             message.channel.send(rule[num]);

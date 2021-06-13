@@ -1,29 +1,43 @@
-import { Model } from "sequelize";
+export interface Cooldowns {
+    _id: string;
+    cooldown: Date;
+}
 
-interface CurrencyAttributes {
-    id: string;
+export interface Currency {
+    _id: string;
     bal: number;
     bank: number;
     bankSpace: number;
 }
 
-interface CooldownAttributes {
-    id: string;
-    cooldown: number;
-}
-
-interface DonationAttributes {
-    id: string;
+export interface Donations {
+    _id: string;
     amount: number;
 }
 
-interface JobAttributes {
-    id: string;
+export interface Jobs {
+    _id: string;
     job: string;
     salary: number;
 }
 
-export interface CurrencyInstance extends Model<CurrencyAttributes>, CurrencyAttributes {}
-export interface CooldownInstance extends Model<CooldownAttributes>, CooldownAttributes {}
-export interface DonationInstance extends Model<DonationAttributes>, DonationAttributes {}
-export interface JobInstance extends Model<JobAttributes>, JobAttributes {}
+export interface Tickets {
+    _id: string;
+    name: string;
+    conversation: string;
+    user: string;
+}
+
+interface req {
+    type: typeof String | typeof Number | typeof Date,
+    required: boolean
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line no-shadow
+const type = (type: typeof String | typeof Number | typeof Date): req => {
+    const reqObj: req = { type, required: true };
+    return reqObj;
+};
+
+export default type;

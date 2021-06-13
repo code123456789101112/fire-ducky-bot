@@ -1,5 +1,4 @@
 import Discord, { Collection, CollectorFilter, MessageEmbed } from "discord.js";
-import { CurrencyInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -13,12 +12,16 @@ export default new Command({
     usage: "<amount>",
     cooldown: 8,
     async execute(client: Client, message: Message, args: string[]): Promise<unknown> {
-        const userMoney: CurrencyInstance | null = await client.Currency.findOne({ where: { id: message.author.id } });
+        const userMoney = await client.Currency.findByIdOrCreate(message.author.id, {
+            _id: message.author.id,
+            bal: 0,
+            bank: 0,
+            bankSpace: 1000
+        });
 
         const bet: number = parseInt(args[0]);
 
-        if (!userMoney) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
-        else if (!args[0] || isNaN(bet)) return message.channel.send("You didn't say how much to bet!");
+        if (!args[0] || isNaN(bet)) return message.channel.send("You didn't say how much to bet!");
         else if (bet < 500) return message.channel.send("You can't bet less than 500.");
         else if (bet > 100000) return message.channel.send("You can't bet more than 100,000.");
         else if (bet > userMoney.bal) return message.channel.send("You don't have enough money in your wallet for that!");
@@ -80,22 +83,27 @@ export default new Command({
                 .setDescription(`Your total: ${addCards(userCards)}\nDealer's total: ${addCards(dealerCards)}`);
             if (result.win) {
                 const winAmount: number = client.randomInt(bet * 0.1, bet * 2);
+
                 finalEmbed.setFooter("nice win");
                 finalEmbed.setColor("#05ed43");
 
-                await userMoney.increment("bal", { by: winAmount });
-                message.channel.send(`You won ${winAmount}!`, { embed: finalEmbed });
+                userMoney.bal += winAmount;
+                await userMoney.save();
+
+                message.channel.send({ content: `You won ${winAmount}!`, embeds: [finalEmbed] });
             } else if (result.win === null) {
                 finalEmbed.setFooter("bruh a tie");
                 finalEmbed.setColor("#ebcf00");
 
-                message.channel.send("You lost no coins!", { embed: finalEmbed });
+                message.channel.send({ content: "You lost no coins!", embeds: [finalEmbed] });
             } else {
                 finalEmbed.setFooter("lol u lost");
                 finalEmbed.setColor("#ff0000");
 
-                await userMoney.decrement("bal", { by: bet });
-                message.channel.send("You lost your entire bet!", { embed: finalEmbed });
+                userMoney.bal -= bet;
+                await userMoney.save();
+                
+                message.channel.send({ content: "You lost your entire bet!", embeds: [finalEmbed] });
             }
         };
 
@@ -107,7 +115,7 @@ export default new Command({
                     { name: "Dealer's Cards", value:  `\`${dealerCards[0]}\`, \`?\`` }
                 ])
                 .setDescription(`Your total: ${addCards(userCards)}\nDealer's total: ?\n\nType \`h\` to hit, \`s\` to stand, or \`e\` to end.`);
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         };
 
         const play = () => {

@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOption } from "discord.js";
+import { CommandInteraction, CommandInteractionOption, Collection } from "discord.js";
 import { SlashCommand } from "../structs/command.js";
 
 import Client from "../structs/client.js";
@@ -21,10 +21,10 @@ export default new SlashCommand({
             required: false
         }]
     },
-    async execute(client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) {
-        if (args[0] && /ws/i.test(args[0].value as string)) {
+    async execute(client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) {
+        if (args.get("type") && /ws/i.test(args.get("type")?.value as string)) {
             await interaction.reply(`Pong! \`${client.ws.ping}ms\``);
-        } else if (args[0] && /rtp/i.test(args[0].value as string)) {
+        } else if (args.get("type") && /rtp/i.test(args.get("type")?.value as string)) {
             const ping = Date.now() - interaction.createdTimestamp;
             await interaction.reply("Pong!");
     

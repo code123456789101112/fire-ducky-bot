@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOption, MessageEmbed } from "discord.js";
+import { Collection, CommandInteraction, CommandInteractionOption, MessageEmbed } from "discord.js";
 import { SlashCommand } from "../structs/command.js";
 
 import Client from "../structs/client.js";
@@ -75,58 +75,61 @@ export default new SlashCommand({
         }]
     },
     cooldown: 600,
-    async execute(client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) {
-        if (args[0].name === "giveaway") {
-            const options = args[0].options as CommandInteractionOption[];
-
+    async execute(client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) {
+        if (args.get("giveaway")) {
+            const options = args.get("giveaway")?.options as Collection<string, CommandInteractionOption>;
+            console.log(options);
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.tag} wants to donate to a giveaway!!`)
                 .addFields({
                     name: "Time",
-                    value: options[0].value as string
+                    value: options.get("time")?.value as string
                 }, {
                     name: "Amount Of Winners:",
-                    value: options[1].value as string
+                    value: options.get("amount-of-winners")?.value as `${number}`
                 }, {
                     name: "Requirement(s):",
-                    value: options[2].value as string
+                    value: options.get("req")?.value as string
                 }, {
                     name: "Prize:",
-                    value: options[3].value as string
+                    value: options.get("prize")?.value as string
                 })
                 .setColor("#00ff00")
                 .setFooter("Thank you for your kind donation!!");
-            if (options[4]?.value) embed.addField("Message:", options[4].value as string);
+            if (options.get("message")) embed.addField("Message:", options.get("message")?.value as string ?? "no message");
                 
-            await interaction.reply(`<@&${client.config.ids.roles.giveaway}>`, {
+            await interaction.reply({
+                content: `<@&${client.config.ids.roles.giveaway}>`,
                 embeds: [embed],
                 allowedMentions: { parse: ["roles", "users", "everyone"] }
             });
-        } else if (args[0].name === "heist") {
-            const options = args[0].options as CommandInteractionOption[];
+        } else if (args.get("heist")) {
+            const options = args.get("heist")?.options as Collection<string, CommandInteractionOption>;
 
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.tag} wants to donate to a heist!!`)
-                .addField("Amount", options[0].value as string)
+                .addField("Amount", options.get("amount")?.value as string)
                 .setColor("#00ff00")
                 .setFooter("Thank you for your kind donation!!");
-            if (options[1]?.value) embed.addField("Message:", options[1].value as string);
+            if (options.get("message")) embed.addField("Message:", options.get("message")?.value as string);
 
-            await interaction.reply("<@&824272561009328140>", {
+            await interaction.reply({
+                content: "<@&824272561009328140>",
                 embeds: [embed],
                 allowedMentions: { parse: ["roles", "users", "everyone"] }
             });
         } else {
-            const options = args[0].options as CommandInteractionOption[];
+            const options = args.get("event")?.options as Collection<string, CommandInteractionOption>;
 
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.tag} wants to donate to an event!!`)
-                .addFields({ name: "Type", value: options[0].value as string }, { name: "Prize", value: options[1].value as string })
+                .addFields({ name: "Type", value: options.get("type")?.value as string }, { name: "Prize", value: options.get("prize")?.value as string })
                 .setColor("#00ff00")
                 .setFooter("Thank you for your kind donation!!");
-            if (options[1]?.value) embed.addField("Message:", options[1].value as string);
+            if (options.get("message")) embed.addField("Message:", options.get("message")?.value as string);
 
-            await interaction.reply("<@&824272561009328147>", {
+            await interaction.reply({
+                content: "<@&824272561009328147>",
                 embeds: [embed],
                 allowedMentions: { parse: ["roles", "users", "everyone"] }
             });

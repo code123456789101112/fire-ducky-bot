@@ -16,13 +16,13 @@ export default new Command({
         }
 
         const suggestion: string = message.content.slice(8);
-        const suggestionChannel: GuildChannel = (message.guild as Guild).channels.cache.get(client.config.ids.channels.suggest) as GuildChannel;
+        const suggestionChannel: GuildChannel = (message.guild as Guild).channels.cache.get(client.config.ids.channels.suggest as `${bigint}`) as GuildChannel;
 
         const embed = new MessageEmbed()
             .setTitle(`${message.author.username}'s Suggestion:`)
             .setDescription(suggestion)
             .setColor(client.config.themeColor);
-        (suggestionChannel as TextChannel).send(embed).then(m => {
+        (suggestionChannel as TextChannel).send({ embeds: [embed] }).then(m => {
             m.react("⬆️").then(() => m.react("⬇️"));
         });
 	},

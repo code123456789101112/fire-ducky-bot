@@ -1,5 +1,4 @@
 import ms from "parse-ms";
-import { CooldownInstance, CurrencyInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -13,18 +12,26 @@ export default new Command({
         const reward = 10000;
         const timeout = 86400000;
 
-        const userMoney: CurrencyInstance | null = await client.Currency.findOne({ where: { id: message.author.id } });
-        let userCD: CooldownInstance | null = await client.Cooldowns.findOne({ where: { id: message.author.id + this.name } });
+        const userMoney = await client.Currency.findByIdOrCreate(message.author.id, {
+            _id: message.author.id,
+            bal: 0,
+            bank: 0,
+            bankSpace: 1000
+        });
 
-        if (!userMoney) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
+        let userCD = await client.Cooldowns.findById(message.author.id + this.name);
 
         if (!userCD) {
             userCD = await client.Cooldowns.create({
-                id: message.author.id + this.name,
+                _id: message.author.id + this.name,
                 cooldown: Date.now()
             });
 
-            await userMoney.increment("bal", { by: reward });
+            await userCD.save();
+
+            userMoney.bal += reward;
+            await userMoney.save();
+
             return message.channel.send("You collected your daily reward of 10,000 coins!");
         } else if (timeout - (Date.now() - userCD.cooldown) > 0) {
             interface msObj {
@@ -39,8 +46,11 @@ export default new Command({
             const time: msObj = ms(timeout - (Date.now() - userCD.cooldown));
             return message.channel.send(`You already collected your daily reward! Collect again in ${time.hours}h ${time.minutes}m ${time.seconds}s`);
         } else {
-            await userMoney.increment("bal", { by: reward });
-            await client.Cooldowns.update({ cooldown: Date.now() }, { where: { id: message.author.id + this.name } });
+            userMoney.bal += reward;
+            await userMoney.save();
+
+            userCD.cooldown = Date.now();
+            await userCD.save();
 
             return message.channel.send("You collected your daily reward of 10,000 coins!");
         }

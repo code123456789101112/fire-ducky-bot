@@ -11,7 +11,7 @@ export default class Message extends Discord.Message {
     const { prefix, ids } = client.config;
     const { cooldowns } = client;
 
-    if (!this.content.startsWith(prefix) || this.author.bot) return;
+    if (!this.content.startsWith(prefix) || this.author.bot || this.channel.type === "dm") return;
     else if (this.channel.id === ids.channels.spam && this.author.id !== ids.users.owner) return;
 
     const args: string[] = this.content.slice(prefix.length).trim().split(/\s+/);
@@ -22,8 +22,6 @@ export default class Message extends Discord.Message {
     const command: Command = client.commands.get(commandName) as Command || client.commands.find((cmd: any) => cmd.aliases?.includes(commandName)) as Command;
 
     if (!command) return;
-
-    if (command.guildOnly && this.channel.type === "dm") return this.reply("I can't execute that command inside DMs!");
 
     if (command.permissions) {
       const authorPerms = (this.channel as TextChannel).permissionsFor(this.author);

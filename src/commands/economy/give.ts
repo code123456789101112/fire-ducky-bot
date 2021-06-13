@@ -1,5 +1,4 @@
 import { User } from "discord.js";
-import { CurrencyInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -11,29 +10,33 @@ export default new Command({
     usage: "user money",
     description: "Gives money to someone else.",
     async execute(client: Client, message: Message, args: string[]): Promise<unknown> {
-        const authorBal: CurrencyInstance | null = await client.Currency.findOne({ where: { id: message.author.id } });
-        if (!authorBal) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
+        const authorBal = await client.Currency.findByIdOrCreate(message.author.id, {
+            _id: message.author.id,
+            bal: 0,
+            bank: 0,
+            bankSpace: 1000
+        });
         
-        const user: User = message.mentions.users.first() || await client.users.fetch(args[0]);
+        const user: User = message.mentions.users.first() || await client.users.fetch(args[0] as `${bigint}`);
         if (!user) return message.channel.send("You didn't say who to give money to!");
 
-        let userBal: CurrencyInstance | null = await client.Currency.findOne({ where: { id: user.id } });
-        if (!userBal) {
-            userBal = await client.Currency.create({
-                id: user.id,
-                bal: 0,
-                bank: 0,
-                bankSpace: 1000
-            });
-        }
+        const userBal = await client.Currency.findByIdOrCreate(user.id, {
+            _id: user.id,
+            bal: 0,
+            bank: 0,
+            bankSpace: 1000
+        });
 
         if (isNaN(parseInt(args[1]))) return message.channel.send("That's not a valid amount");
 
         const amount: number = parseInt(args[1]);
         if (amount > authorBal.bal) return message.channel.send("You don't have enough for this.");
 
-        await authorBal.decrement("bal", { by: amount });
-        await userBal.increment("bal", { by: amount });
+        authorBal.bal -= amount;
+        await authorBal.save();
+
+        userBal.bal += amount;
+        await userBal.save();
 
         message.channel.send(`You successfully gave ${amount} to ${user.username}!`);
     }

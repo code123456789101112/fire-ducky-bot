@@ -19,6 +19,6 @@ export default new Command({
 			return `${user.username}'s avatar: ${user.displayAvatarURL({ dynamic: true })}`;
 		});
 
-		message.channel.send(avatarList);
+		message.channel.send(avatarList.join("\n"));
 	}
 });

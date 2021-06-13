@@ -19,7 +19,7 @@ export default new Command({
             (message.channel as TextChannel).updateOverwrite((message.guild as Guild).roles.everyone, { SEND_MESSAGES: true });
             message.channel.send("Channel unlocked, go go go! Locking again when time is up.");
 
-            const collector = message.channel.createMessageCollector(m => m.author.id === "270904126974590976" && m.content.includes("Time is up to join") && m.content.includes("heist"), { max: 1, time: 240000 });
+            const collector = message.channel.createMessageCollector(m => m.author.id === "270904126974590976" && m.content.includes("Time is up to join") && m.content.includes("heist"), { max: 1, time: 260000 });
             collector.on("collect", () => {
                 (message.channel as TextChannel).updateOverwrite(message.guild?.roles.everyone as Role, { SEND_MESSAGES: false });
                 message.channel.send("Success! channel locked.");

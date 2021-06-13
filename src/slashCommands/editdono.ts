@@ -1,7 +1,6 @@
-import { CommandInteraction, CommandInteractionOption, User } from "discord.js";
+import { Collection, CommandInteraction, CommandInteractionOption, GuildMember, User } from "discord.js";
 import { SlashCommand } from "../structs/command.js";
 
-import { DonationInstance } from "../interfaces/dbInterfaces.js";
 import Client from "../structs/client.js";
 
 export default new SlashCommand({
@@ -47,25 +46,26 @@ export default new SlashCommand({
         permission: true
     }],
     cooldown: 5,
-    async execute(client: Client, interaction: CommandInteraction, args: CommandInteractionOption[]) {
-        const options: CommandInteractionOption[] = args[0].options as CommandInteractionOption[];
+    async execute(client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) {
+        const options = args.first()?.options as Collection<string, CommandInteractionOption>;
         
-        const user: User = options[0].user as User;
-        let userDono: DonationInstance = await client.Donations.findOne({ where: { id: user.id } }) as DonationInstance;
+        const user: User = options.get("user")?.user as User;
+        const userDono = await client.Donations.findByIdOrCreate(user.id, {
+            _id: user.id,
+            amount: 0
+        });
 
-        if (!userDono) {
-            userDono = await client.Donations.create({
-                id: user.id,
-                amount: 0
-            });
-        }
+        if (args.has("increase")) {
+            userDono.amount += options.get("amount")?.value as number;
+            await userDono.save();
 
-        if (args[0].name as string === "increase") {
-            await userDono.increment("amount", { by: options[1].value as number });
-            interaction.reply(`Successfully increased ${options[0].member.displayName}'s donation amount by ${options[1].value}.`);
+            interaction.reply(`Successfully increased ${(options.get("user")?.member as GuildMember)?.displayName}'s donation amount by ${options.get("amount")?.value}.`);
         } else {
-            await userDono.decrement("amount", { by: options[1].value as number });
-            interaction.reply(`Successfully decreased ${options[0].member.displayName}'s donation amount by ${options[1].value}.`);
+            userDono.amount -= options.get("amount")?.value as number;
+            if (userDono.amount < 0) userDono.amount = 0;
+
+            await userDono.save();
+            interaction.reply(`Successfully decreased ${(options.get("user")?.member as GuildMember)?.displayName}'s donation amount by ${options.get("amount")?.value}.`);
         }
     }
 });

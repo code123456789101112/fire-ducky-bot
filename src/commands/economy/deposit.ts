@@ -1,5 +1,3 @@
-import { CurrencyInstance } from "../../interfaces/dbInterfaces.js";
-
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
 
@@ -11,10 +9,12 @@ export default new Command({
     usage: "amount",
     description: "Currency command which deposits money into your bank.",
     async execute(client: Client, message: Message, args: string[]): Promise<unknown> {
-        const userMoney: CurrencyInstance | null = await client.Currency.findOne({ where: { id: message.author.id } });
-
-
-        if (!userMoney) message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
+        const userMoney = await client.Currency.findByIdOrCreate(message.author.id, {
+            _id: message.author.id,
+            bal: 0,
+            bank: 0,
+            bankSpace: 1000
+        });
 
         if (!args[0] || isNaN(parseInt(args[0]))) return message.channel.send("Either you didn't say how much to deposit or that is not a valid amount.");
 
@@ -22,9 +22,10 @@ export default new Command({
         if (userMoney?.bal as number < amount) return message.channel.send("You don't have enough money for this.");
         else if (amount + (userMoney?.bank as number) > (userMoney?.bankSpace as number)) return message.channel.send("Your bank isn't big enough for this");
         
-        await userMoney?.decrement("bal", { by: amount });
-        await userMoney?.increment("bank", { by: amount });
+        userMoney.bal -= amount;
+        userMoney.bank += amount;
 
+        await userMoney.save();
         message.channel.send(`You successfully deposited ${amount} coins!`);
     }
 });

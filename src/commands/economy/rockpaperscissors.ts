@@ -1,5 +1,4 @@
 import Discord, { Collection, MessageEmbed } from "discord.js";
-import { CurrencyInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -13,7 +12,12 @@ export default new Command({
     usage: "<amount>",
     cooldown: 7,
     async execute(client: Client, message: Message, args: string[]): Promise<unknown> {
-        const userMoney: CurrencyInstance | null = await client.Currency.findOne({ where: { id: message.author.id } });
+        const userMoney = await client.Currency.findByIdOrCreate(message.author.id, {
+            _id: message.author.id,
+            bal: 0,
+            bank: 0,
+            bankSpace: 1000
+        });
 
         const bet: number = parseInt(args[0]);
 
@@ -68,18 +72,20 @@ export default new Command({
             const winAmount: number = client.randomInt(bet * 0.25, bet * 1.5);
 
             if (result?.win) {
-                await userMoney.increment("bal", { by: winAmount });
+                userMoney.bal += winAmount;
+                await userMoney.save();
 
                 gameEmbed.setColor("#00ff00");
-                message.channel.send(`You won ${winAmount}!!`, { embed: gameEmbed });
+                message.channel.send({ content: `You won ${winAmount}!!`, embeds: [gameEmbed] });
             } else if (result?.win === null) {
                 gameEmbed.setColor("#ffff00");
-                message.channel.send("It was a tie. You lost nothing", { embed: gameEmbed });
+                message.channel.send({ content: "It was a tie. You lost nothing", embeds: [gameEmbed] });
             } else {
-                await userMoney.decrement("bal", { by: bet });
+                userMoney.bal -= bet;
+                await userMoney.save();
 
                 gameEmbed.setColor("#ff0000");
-                message.channel.send("You lost your entire bet!", { embed: gameEmbed });
+                message.channel.send({ content: "You lost your entire bet!", embeds: [gameEmbed] });
             }
         }).catch(() => message.channel.send("You didn't answer, ending the game"));
     }

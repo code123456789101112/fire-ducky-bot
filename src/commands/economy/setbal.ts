@@ -1,5 +1,4 @@
 import { User } from "discord.js";
-import { CurrencyInstance } from "../../interfaces/dbInterfaces.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -12,21 +11,19 @@ export default new Command({
     description: "sets a user's balance",
     devOnly: true,
     async execute(client: Client, message: Message, args: string[]): Promise<unknown> {
-        const user: User = message.mentions.users.first() || await client.users.fetch(args[0]);
+        const user: User = message.mentions.users.first() || await client.users.fetch(args[0] as `${bigint}`);
         if (!user) return;
 
-        let userMoney: CurrencyInstance | null = await client.Currency.findOne({ where: { id: user.id } });
+        const userMoney = await client.Currency.findByIdOrCreate(user.id, {
+            _id: user.id,
+            bal: 0,
+            bank: 0,
+            bankSpace: 1000
+        });
 
-        if (!userMoney) {
-            userMoney = await client.Currency.create({
-                id: user.id,
-                bal: 0,
-                bank: 0,
-                bankSpace: 1000
-            });
-        }
-
-        await userMoney.increment("bal", { by: parseInt(args[1]) });
+        userMoney.bal = parseInt(args[1]);
+        await userMoney.save();
+        
         message.channel.send("You set the balance.");
     }
 });

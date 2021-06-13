@@ -3,11 +3,12 @@
     "@keyv/mongo": "^1.1.0",
     "@types/require-all": "^3.0.1",
     "@types/sequelize": "^4.28.9",
-    "discord.js": "github:discordjs/discord.js",
+    "discord.js": "^13.0.0-dev.02693bc02f45980d8165820a103220f0027b96b7",
     "dotenv": "^10.0.0",
     "forever": "^3.0.4",
     "keyv": "^4.0.3",
     "mariadb": "^2.5.3",
+    "mongoose": "^5.12.13",
     "parse-ms": "^2.1.0",
     "require-all": "^3.0.0",
     "requireall": "^1.0.0",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@types/keyv": "^3.1.1",
+    "@types/mongoose": "^5.11.97",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
     "eslint": "^7.26.0"
