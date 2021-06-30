@@ -1,4 +1,5 @@
-import { MessageEmbed, User } from "discord.js";
+import { User } from "discord.js";
+import MessageEmbed from "../../structs/embed.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -20,7 +21,7 @@ export default new Command({
             bankSpace: 1000
         });
 
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: MessageEmbed = new MessageEmbed(message.author)
             .setTitle(`${user.username}'s balance:`)
             .setColor(client.config.themeColor)
             .addFields([

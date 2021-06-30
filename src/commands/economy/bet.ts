@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import MessageEmbed from "../../structs/embed.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -32,7 +32,7 @@ export default new Command({
         const userRoll: number = client.randomInt(0, 10);
         const botRoll: number = client.randomInt(0, 10);
 
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: MessageEmbed = new MessageEmbed(message.author)
             .setTitle(`${message.author.username}'s gambling game`)
             .addFields({ name: "Your Roll", value: `${userRoll}` }, { name: "Bot's Roll", value: `${botRoll}` });
         if (userRoll > botRoll) {

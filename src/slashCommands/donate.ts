@@ -1,6 +1,7 @@
-import { Collection, CommandInteraction, CommandInteractionOption, MessageEmbed } from "discord.js";
-import { SlashCommand } from "../structs/command.js";
+import { Collection, CommandInteraction, CommandInteractionOption } from "discord.js";
+import MessageEmbed from "../structs/embed.js";
 
+import { SlashCommand } from "../structs/command.js";
 import Client from "../structs/client.js";
 
 export default new SlashCommand({
@@ -95,7 +96,7 @@ export default new SlashCommand({
     async execute(client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) {
         if (args.get("giveaway")) {
             const options = args.get("giveaway")?.options as Collection<string, CommandInteractionOption>;
-            const embed: MessageEmbed = new MessageEmbed()
+            const embed: MessageEmbed = new MessageEmbed(interaction.user)
                 .setTitle(`${interaction.user.tag} wants to donate to a giveaway!!`)
                 .addFields(
                     {
@@ -128,7 +129,7 @@ export default new SlashCommand({
         } else if (args.get("heist")) {
             const options = args.get("heist")?.options as Collection<string, CommandInteractionOption>;
 
-            const embed: MessageEmbed = new MessageEmbed()
+            const embed: MessageEmbed = new MessageEmbed(interaction.user)
                 .setTitle(`${interaction.user.tag} wants to donate to a heist!!`)
                 .addField("Amount", `${options.get("amount")?.value}`)
                 .setColor("#00ff00")
@@ -143,7 +144,7 @@ export default new SlashCommand({
         } else {
             const options = args.get("event")?.options as Collection<string, CommandInteractionOption>;
 
-            const embed: MessageEmbed = new MessageEmbed()
+            const embed: MessageEmbed = new MessageEmbed(interaction.user)
                 .setTitle(`${interaction.user.tag} wants to donate to an event!!`)
                 .addFields(
                     { name: "Type", value: options.get("type")?.value as string },

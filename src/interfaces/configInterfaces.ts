@@ -8,6 +8,7 @@ export interface ConfigProperties {
 
     serverName: string;
     website: string;
+    serverIcon: string;
 }
 
 export interface IDsProperties {

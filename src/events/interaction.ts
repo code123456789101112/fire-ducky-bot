@@ -1,4 +1,5 @@
-import { Collection, Interaction, MessageAttachment, MessageEmbed, TextChannel } from "discord.js";
+import { Collection, Interaction, MessageAttachment, TextChannel } from "discord.js";
+import MessageEmbed from "../structs/embed.js";
 
 import ms from "parse-ms";
 import fs from "fs";
@@ -78,7 +79,7 @@ export default async (client: Client, interaction: Interaction): Promise<void> =
 
             const cmdList = categoryCommands.join("`, `");
 
-            const categoryEmbed = new MessageEmbed()
+            const categoryEmbed = new MessageEmbed(interaction.user)
                 .setTitle(`${toProperCase(category)} Commands:`)
                 .setDescription(`\`${cmdList}\``)
                 .setColor(client.config.themeColor)

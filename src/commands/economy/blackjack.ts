@@ -1,4 +1,5 @@
-import Discord, { Collection, CollectorFilter, MessageEmbed } from "discord.js";
+import Discord, { Collection, CollectorFilter } from "discord.js";
+import MessageEmbed from "../../structs/embed.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -82,7 +83,7 @@ export default new Command({
         };
 
         const endGame = async (result: { msg: string; win: boolean | null }) => {
-            const finalEmbed: MessageEmbed = new MessageEmbed()
+            const finalEmbed: MessageEmbed = new MessageEmbed(message.author)
                 .setTitle(result.msg)
                 .addFields([
                     { name: "Your Cards", value: `\`${userCards.join("`, `")}\`` },
@@ -125,7 +126,7 @@ export default new Command({
         };
 
         const gameEmbed = () => {
-            const embed: MessageEmbed = new MessageEmbed()
+            const embed: MessageEmbed = new MessageEmbed(message.author)
                 .setTitle(`${message.author.username}'s blackjack game:`)
                 .addFields([
                     { name: "Your Cards", value: `\`${userCards.join("`, `")}\`` },
