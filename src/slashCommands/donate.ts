@@ -7,97 +7,119 @@ export default new SlashCommand({
     data: {
         name: "donate",
         description: "Donation command.",
-        options: [{
-            name: "giveaway",
-            description: "Donate to a giveaway.",
-            type: "SUB_COMMAND",
-            options: [{
-                name: "time",
-                description: "The duration of the giveaway.",
-                type: "STRING",
-                required: true
-            }, {
-                name: "amount-of-winners",
-                description: "The amount of people that will win.",
-                type: "INTEGER",
-                required: true
-            }, {
-                name: "req",
-                description: "The requirement(s)/request(s) for the giveaway.",
-                type: "STRING",
-                required: true
-            }, {
-                name: "prize",
-                description: "The prize of course.",
-                type: "STRING",
-                required: true
-            }, {
-                name: "message",
-                description: "Your message for the giveaway.",
-                type: "STRING",
-                required: false
-            }]
-        }, {
-            name: "heist",
-            description: "Donate to a heist.",
-            type: "SUB_COMMAND",
-            options: [{
-                name: "amount",
-                description: "The amount the heist should be.",
-                type: "INTEGER",
-                required: true
-            }, {
-                name: "message",
-                description: "Your message for the heist.",
-                type: "STRING",
-                required: false
-            }]
-        }, {
-            name: "event",
-            description: "Donate to an event.",
-            type: "SUB_COMMAND",
-            options: [{
-                name: "type",
-                description: "The type of event to donate to.",
-                type: "STRING",
-                required: true
-            }, {
-                name: "prize",
-                description: "The prize for the event.",
-                type: "STRING",
-                required: true
-            }, {
-                name: "message",
-                description: "Your message for the event.",
-                type: "STRING",
-                required: false
-            }]
-        }]
+        options: [
+            {
+                name: "giveaway",
+                description: "Donate to a giveaway.",
+                type: "SUB_COMMAND",
+                options: [
+                    {
+                        name: "time",
+                        description: "The duration of the giveaway.",
+                        type: "STRING",
+                        required: true
+                    },
+                    {
+                        name: "amount-of-winners",
+                        description: "The amount of people that will win.",
+                        type: "INTEGER",
+                        required: true
+                    },
+                    {
+                        name: "req",
+                        description: "The requirement(s)/request(s) for the giveaway.",
+                        type: "STRING",
+                        required: true
+                    },
+                    {
+                        name: "prize",
+                        description: "The prize of course.",
+                        type: "STRING",
+                        required: true
+                    },
+                    {
+                        name: "message",
+                        description: "Your message for the giveaway.",
+                        type: "STRING",
+                        required: false
+                    }
+                ]
+            },
+            {
+                name: "heist",
+                description: "Donate to a heist.",
+                type: "SUB_COMMAND",
+                options: [
+                    {
+                        name: "amount",
+                        description: "The amount the heist should be.",
+                        type: "INTEGER",
+                        required: true
+                    },
+                    {
+                        name: "message",
+                        description: "Your message for the heist.",
+                        type: "STRING",
+                        required: false
+                    }
+                ]
+            },
+            {
+                name: "event",
+                description: "Donate to an event.",
+                type: "SUB_COMMAND",
+                options: [
+                    {
+                        name: "type",
+                        description: "The type of event to donate to.",
+                        type: "STRING",
+                        required: true
+                    },
+                    {
+                        name: "prize",
+                        description: "The prize for the event.",
+                        type: "STRING",
+                        required: true
+                    },
+                    {
+                        name: "message",
+                        description: "Your message for the event.",
+                        type: "STRING",
+                        required: false
+                    }
+                ]
+            }
+        ]
     },
     cooldown: 600,
     async execute(client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) {
         if (args.get("giveaway")) {
             const options = args.get("giveaway")?.options as Collection<string, CommandInteractionOption>;
-            console.log(options);
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.tag} wants to donate to a giveaway!!`)
-                .addFields({
-                    name: "Time",
-                    value: options.get("time")?.value as string
-                }, {
-                    name: "Amount Of Winners:",
-                    value: options.get("amount-of-winners")?.value as `${number}`
-                }, {
-                    name: "Requirement(s):",
-                    value: options.get("req")?.value as string
-                }, {
-                    name: "Prize:",
-                    value: options.get("prize")?.value as string
-                })
+                .addFields(
+                    {
+                        name: "Time",
+                        value: options.get("time")?.value as string
+                    },
+                    {
+                        name: "Amount Of Winners:",
+                        value: `${options.get("amount-of-winners")?.value}`
+                    },
+                    {
+                        name: "Requirement(s):",
+                        value: options.get("req")?.value as string
+                    },
+                    {
+                        name: "Prize:",
+                        value: options.get("prize")?.value as string
+                    }
+                )
                 .setColor("#00ff00")
                 .setFooter("Thank you for your kind donation!!");
-            if (options.get("message")) embed.addField("Message:", options.get("message")?.value as string ?? "no message");
-                
+            if (options.get("message"))
+                embed.addField("Message:", (options.get("message")?.value as string) ?? "no message");
+
             await interaction.reply({
                 content: `<@&${client.config.ids.roles.giveaway}>`,
                 embeds: [embed],
@@ -108,7 +130,7 @@ export default new SlashCommand({
 
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.tag} wants to donate to a heist!!`)
-                .addField("Amount", options.get("amount")?.value as string)
+                .addField("Amount", `${options.get("amount")?.value}`)
                 .setColor("#00ff00")
                 .setFooter("Thank you for your kind donation!!");
             if (options.get("message")) embed.addField("Message:", options.get("message")?.value as string);
@@ -123,7 +145,10 @@ export default new SlashCommand({
 
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.tag} wants to donate to an event!!`)
-                .addFields({ name: "Type", value: options.get("type")?.value as string }, { name: "Prize", value: options.get("prize")?.value as string })
+                .addFields(
+                    { name: "Type", value: options.get("type")?.value as string },
+                    { name: "Prize", value: options.get("prize")?.value as string }
+                )
                 .setColor("#00ff00")
                 .setFooter("Thank you for your kind donation!!");
             if (options.get("message")) embed.addField("Message:", options.get("message")?.value as string);
@@ -134,5 +159,5 @@ export default new SlashCommand({
                 allowedMentions: { parse: ["roles", "users", "everyone"] }
             });
         }
-    }   
+    }
 });

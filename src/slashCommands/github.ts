@@ -8,6 +8,9 @@ export default new SlashCommand({
         description: "Gives link to repo."
     },
     execute(_client: Client, interaction: CommandInteraction) {
-        interaction.reply({ content: "https://github.com/code123456789101112/discord-bot", ephemeral: true });
+        interaction.reply({
+            content: "https://github.com/code123456789101112/discord-bot",
+            ephemeral: true
+        });
     }
 });

@@ -16,15 +16,17 @@ export default new Command({
             bankSpace: 1000
         });
 
-        if (!args[0] || isNaN(parseInt(args[0]))) return message.channel.send("Either you didn't say how much to withdraw or that is not a valid amount.");
+        if (!args[0] || isNaN(parseInt(args[0])))
+            return message.channel.send("Either you didn't say how much to withdraw or that is not a valid amount.");
 
         const amount: number = parseInt(args[0]);
-        if (userMoney?.bank as number < amount) return message.channel.send("You don't have enough money in your bank for this.");
-        
+        if ((userMoney?.bank as number) < amount)
+            return message.channel.send("You don't have enough money in your bank for this.");
+
         userMoney.bank -= amount;
         userMoney.bal += amount;
-        
+
         await userMoney.save();
-        message.channel.send(`You successfully withdrew ${amount} coins!`);
+        message.channel.send(`You successfully withdrew ${amount.toLocaleString()} coins!`);
     }
 });

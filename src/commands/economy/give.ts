@@ -16,8 +16,8 @@ export default new Command({
             bank: 0,
             bankSpace: 1000
         });
-        
-        const user: User = message.mentions.users.first() || await client.users.fetch(args[0] as `${bigint}`);
+
+        const user: User = message.mentions.users.first() || (await client.users.fetch(args[0] as `${bigint}`));
         if (!user) return message.channel.send("You didn't say who to give money to!");
 
         const userBal = await client.Currency.findByIdOrCreate(user.id, {
@@ -38,6 +38,6 @@ export default new Command({
         userBal.bal += amount;
         await userBal.save();
 
-        message.channel.send(`You successfully gave ${amount} to ${user.username}!`);
+        message.channel.send(`You successfully gave ${amount.toLocaleString()} to ${user.username}!`);
     }
 });

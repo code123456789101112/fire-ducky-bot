@@ -17,13 +17,15 @@ export default class Client extends Discord.Client implements ClientProperties {
     slashCommands: Collection<string, SlashCommand>;
 
     cooldowns: Collection<string, Collection<string, number>>;
-    
+
     l2l: boolean;
     ch: boolean | VoiceChannel;
     wr: boolean | VoiceChannel;
     chlogs: boolean | TextChannel;
 
-    config: Config
+    botCount: number;
+
+    config: Config;
 
     Cooldowns: any;
     Currency: any;
@@ -32,20 +34,31 @@ export default class Client extends Discord.Client implements ClientProperties {
     Tickets: any;
 
     constructor() {
-        super({ partials: ["MESSAGE", "CHANNEL", "REACTION", "USER", "GUILD_MEMBER"], intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
-        
+        super({
+            partials: ["MESSAGE", "CHANNEL", "REACTION", "USER", "GUILD_MEMBER"],
+            intents: [
+                Intents.FLAGS.GUILDS,
+                Intents.FLAGS.GUILD_MESSAGES,
+                Intents.FLAGS.GUILD_MEMBERS,
+                Intents.FLAGS.DIRECT_MESSAGES,
+                Intents.FLAGS.GUILD_VOICE_STATES
+            ]
+        });
+
         this.commands = new Collection();
         this.slashCommands = new Collection();
 
         this.cooldowns = new Collection();
-        
+
         this.l2l = false;
         this.ch = false;
         this.wr = false;
         this.chlogs = false;
-        
+
+        this.botCount = 22;
+
         this.config = config;
-        
+
         this.Cooldowns = Cooldowns;
         this.Currency = Currency;
         this.Donations = Donations;
@@ -56,13 +69,13 @@ export default class Client extends Discord.Client implements ClientProperties {
     async getUserFromMention(mention: string): Promise<void | User> {
         const matches: string[] | null = mention.match(/^<@!?(\d+)>$/);
         if (!matches) return;
-    
+
         return await this.users.fetch(matches[1] as `${bigint}`);
     }
 
     async getMemberFromMention(message: Message, mention: string): Promise<GuildMember | void> {
         const matches: string[] | null = mention.match(/^<@!?(\d+)>$/);
-        if (!matches) return;  
+        if (!matches) return;
 
         return await message.guild?.members.fetch(matches[1] as `${bigint}`);
     }

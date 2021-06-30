@@ -12,17 +12,19 @@ export default new Command({
     devOnly: true,
     execute(client: Client, message: Message): void {
         function clean(text: unknown) {
-            if (typeof text === "string") return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+            if (typeof text === "string")
+                return text
+                    .replace(/`/g, "`" + String.fromCharCode(8203))
+                    .replace(/@/g, "@" + String.fromCharCode(8203));
             else return text;
         }
-        
+
         try {
             const code: string = message.content.slice(5);
             let evaled: unknown = eval(code);
-        
-            if (typeof evaled !== "string")
-                evaled = inspect(evaled);
-        
+
+            if (typeof evaled !== "string") evaled = inspect(evaled);
+
             message.channel.send({ content: clean(evaled) as string, code: "xl" });
         } catch (err) {
             message.author.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);

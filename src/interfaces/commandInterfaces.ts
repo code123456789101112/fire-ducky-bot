@@ -1,4 +1,11 @@
-import { PermissionResolvable, ApplicationCommandData, CommandInteraction, CommandInteractionOption, ApplicationCommandPermissionData, Collection } from "discord.js";
+import {
+    PermissionResolvable,
+    ApplicationCommandData,
+    CommandInteraction,
+    CommandInteractionOption,
+    ApplicationCommandPermissionData,
+    Collection
+} from "discord.js";
 
 import Client from "../structs/client.js";
 import Message from "../structs/message.js";
@@ -12,7 +19,11 @@ export interface BaseCommandProperties {
 export interface SlashCommandProperties extends BaseCommandProperties {
     data: ApplicationCommandData;
     permissions?: ApplicationCommandPermissionData[];
-    execute: (client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) => unknown;
+    execute: (
+        client: Client,
+        interaction: CommandInteraction,
+        args: Collection<string, CommandInteractionOption>
+    ) => unknown;
 }
 
 export interface CommandProperties extends BaseCommandProperties {

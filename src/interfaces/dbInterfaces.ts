@@ -29,8 +29,8 @@ export interface Tickets {
 }
 
 interface req {
-    type: typeof String | typeof Number | typeof Date,
-    required: boolean
+    type: typeof String | typeof Number | typeof Date;
+    required: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

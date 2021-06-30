@@ -16,7 +16,7 @@ export default {
 
             console.log(`Loaded ${name} event.`);
         }
-        
+
         console.log();
     },
 
@@ -45,7 +45,7 @@ export default {
 
             console.log(`Loaded ${command.data.name} command.`);
         }
-        
+
         console.log();
     }
 };

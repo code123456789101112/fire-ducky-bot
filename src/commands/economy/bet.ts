@@ -21,11 +21,13 @@ export default new Command({
 
         const bet = parseInt(args[0]);
 
-        if (!userMoney) return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
+        if (!userMoney)
+            return message.channel.send("You haven't started using currency yet. Use `=start` to get started.");
         else if (!args[0] || isNaN(parseInt(args[0]))) return message.channel.send("You didn't say how much to bet!");
         else if (bet < 500) return message.channel.send("You can't bet less than 500.");
         else if (bet > 100000) return message.channel.send("You can't bet more than 100,000.");
-        else if (bet > userMoney.bal) return message.channel.send("You don't have enough money in your wallet for that!");
+        else if (bet > userMoney.bal)
+            return message.channel.send("You don't have enough money in your wallet for that!");
 
         const userRoll: number = client.randomInt(0, 10);
         const botRoll: number = client.randomInt(0, 10);
@@ -41,20 +43,29 @@ export default new Command({
             userMoney.bal += winAmount;
             await userMoney.save();
 
-            message.channel.send({ content: `You won ${winAmount}!!`, embeds: [embed] });
+            message.channel.send({
+                content: `You won ${winAmount.toLocaleString()}!!`,
+                embeds: [embed]
+            });
         } else if (userRoll === botRoll) {
             embed.setColor("#ebcf00");
             embed.setDescription("It's a tie!");
 
-            message.channel.send({ content: "You didn't win or lose anything!", embeds: [embed] });
+            message.channel.send({
+                content: "You didn't win or lose anything!",
+                embeds: [embed]
+            });
         } else {
             embed.setColor("#ff0000");
             embed.setDescription("You lost!!");
 
             userMoney.bal -= bet;
             await userMoney.save();
-            
-            message.channel.send({ content: "You lost your entire bet!", embeds: [embed] });
+
+            message.channel.send({
+                content: "You lost your entire bet!",
+                embeds: [embed]
+            });
         }
     }
 });

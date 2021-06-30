@@ -13,13 +13,15 @@ export interface ClientProperties {
     slashCommands: Collection<string, SlashCommand>;
 
     cooldowns: Collection<string, Collection<string, number>>;
-    
+
     l2l: boolean;
     ch: boolean | VoiceChannel;
     wr: boolean | VoiceChannel;
     chlogs: boolean | TextChannel;
 
-    config: Config
+    botCount: number;
+
+    config: Config;
 
     Cooldowns: Model<any, any, any>;
     Currency: Model<any, any, any>;
@@ -31,7 +33,7 @@ export interface ClientProperties {
     getRoleFromMention(message: Message, mention: string): Promise<void | null | Role>;
     getChannelFromMention(mention: string): Promise<void | null | Channel>;
 
-    randomInt(min: number, max: number): number
+    randomInt(min: number, max: number): number;
 
     loadDirs(): Promise<void>;
 }

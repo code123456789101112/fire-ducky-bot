@@ -1,9 +1,15 @@
-import { ApplicationCommandData, CommandInteractionOption, CommandInteraction, PermissionResolvable, ApplicationCommandPermissionData, Collection } from "discord.js";
+import {
+    ApplicationCommandData,
+    CommandInteractionOption,
+    CommandInteraction,
+    PermissionResolvable,
+    ApplicationCommandPermissionData,
+    Collection
+} from "discord.js";
 import { BaseCommandProperties, CommandProperties, SlashCommandProperties } from "../interfaces/commandInterfaces";
 
 import Client from "./client";
 import Message from "./message";
-
 
 class BaseCommand implements BaseCommandProperties {
     cooldown?: number;
@@ -20,8 +26,12 @@ class BaseCommand implements BaseCommandProperties {
 export class SlashCommand extends BaseCommand implements SlashCommandProperties {
     data: ApplicationCommandData;
     permissions: ApplicationCommandPermissionData[] | undefined;
-    execute: (client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) => unknown;
-    
+    execute: (
+        client: Client,
+        interaction: CommandInteraction,
+        args: Collection<string, CommandInteractionOption>
+    ) => unknown;
+
     constructor(properties: SlashCommandProperties) {
         const { cooldown, guildOnly, devOnly } = properties;
         super({ cooldown, guildOnly, devOnly });
@@ -42,11 +52,11 @@ export default class Command extends BaseCommand implements CommandProperties {
     guildOnly: boolean | undefined;
     devOnly: boolean | undefined;
 
-    permissions: PermissionResolvable | undefined
+    permissions: PermissionResolvable | undefined;
     cooldown: number | undefined;
 
     execute: (client: Client, message: Message, args: string[]) => unknown;
-    
+
     constructor(properties: CommandProperties) {
         const { cooldown, guildOnly, devOnly } = properties;
         super({ cooldown, guildOnly, devOnly });

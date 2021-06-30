@@ -6,6 +6,6 @@ export default async (): Promise<Mongoose> => {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-    
+
     return mongoose;
 };

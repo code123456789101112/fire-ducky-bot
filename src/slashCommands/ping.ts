@@ -7,19 +7,24 @@ export default new SlashCommand({
     data: {
         name: "ping",
         description: "Shows the bot's ping.",
-        options: [{
-            name: "type",
-            type: "STRING",
-            description: "The type of ping to show.",
-            choices: [{
-                name: "Webscocket Heartbeat",
-                value: "ws"
-            }, {
-                name: "Roundtrip Latency",
-                value: "rtp"
-            }],
-            required: false
-        }]
+        options: [
+            {
+                name: "type",
+                type: "STRING",
+                description: "The type of ping to show.",
+                choices: [
+                    {
+                        name: "Webscocket Heartbeat",
+                        value: "ws"
+                    },
+                    {
+                        name: "Roundtrip Latency",
+                        value: "rtp"
+                    }
+                ],
+                required: false
+            }
+        ]
     },
     async execute(client: Client, interaction: CommandInteraction, args: Collection<string, CommandInteractionOption>) {
         if (args.get("type") && /ws/i.test(args.get("type")?.value as string)) {
@@ -27,7 +32,7 @@ export default new SlashCommand({
         } else if (args.get("type") && /rtp/i.test(args.get("type")?.value as string)) {
             const ping = Date.now() - interaction.createdTimestamp;
             await interaction.reply("Pong!");
-    
+
             await interaction.editReply(`Pong! \`${ping}ms\``);
         } else await interaction.reply("Pong!");
     }

@@ -31,7 +31,12 @@ export default new Command({
             await m.edit("Finding login info . . .");
             await m.delete();
         });
-        await message.channel.send(`Email: ${hackedUsername.replace(/\s+/, "_")}IsAwesome@gmail.com, Password: ${hackedUsername.replace(/\s+/, "_")}1234`);
+        await message.channel.send(
+            `Email: ${hackedUsername.replace(/\s+/, "_")}IsAwesome@gmail.com, Password: ${hackedUsername.replace(
+                /\s+/,
+                "_"
+            )}1234`
+        );
         await message.channel.send("Finding login info").then(async m => {
             await m.edit("Finding location .");
             await m.edit("Finding location . .");

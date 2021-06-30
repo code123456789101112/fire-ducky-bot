@@ -8,11 +8,11 @@ import Command from "../../structs/command.js";
 const rule: string[] = ["placeholder"];
 
 export default new Command({
-	name: "rules",
-	description: "Shows server rules.",
+    name: "rules",
+    description: "Shows server rules.",
     usage: "rule",
     aliases: ["r"],
-	execute(_client: Client, message: Message, args: string[]): void {
+    execute(_client: Client, message: Message, args: string[]): void {
         if (!args[0]) {
             const embed: MessageEmbed = new MessageEmbed()
                 .setTitle("Server Rules")
@@ -23,5 +23,5 @@ export default new Command({
             const num: number = parseInt(args[0]) - 1;
             message.channel.send(rule[num]);
         }
-	}
+    }
 });

@@ -11,7 +11,7 @@ export default new Command({
     description: "sets a user's balance",
     devOnly: true,
     async execute(client: Client, message: Message, args: string[]): Promise<unknown> {
-        const user: User = message.mentions.users.first() || await client.users.fetch(args[0] as `${bigint}`);
+        const user: User = message.mentions.users.first() || (await client.users.fetch(args[0] as `${bigint}`));
         if (!user) return;
 
         const userMoney = await client.Currency.findByIdOrCreate(user.id, {
@@ -23,7 +23,7 @@ export default new Command({
 
         userMoney.bal = parseInt(args[1]);
         await userMoney.save();
-        
+
         message.channel.send("You set the balance.");
     }
 });

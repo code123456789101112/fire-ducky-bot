@@ -35,16 +35,18 @@ export default new Command({
             return message.channel.send("You collected your daily reward of 10,000 coins!");
         } else if (timeout - (Date.now() - userCD.cooldown) > 0) {
             interface msObj {
-                days: number,
-                hours: number,
-                minutes: number,
-                seconds: number,
-                milliseconds: number,
-                nanoseconds: number
+                days: number;
+                hours: number;
+                minutes: number;
+                seconds: number;
+                milliseconds: number;
+                nanoseconds: number;
             }
 
             const time: msObj = ms(timeout - (Date.now() - userCD.cooldown));
-            return message.channel.send(`You already collected your daily reward! Collect again in ${time.hours}h ${time.minutes}m ${time.seconds}s`);
+            return message.channel.send(
+                `You already collected your daily reward! Collect again in ${time.hours}h ${time.minutes}m ${time.seconds}s`
+            );
         } else {
             userMoney.bal += reward;
             await userMoney.save();
