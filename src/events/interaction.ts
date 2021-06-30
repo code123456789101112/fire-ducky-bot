@@ -1,9 +1,14 @@
-import { Collection, Interaction, MessageAttachment, TextChannel } from "discord.js";
+import { Collection, Interaction, MessageAttachment, MessageEmbed, TextChannel } from "discord.js";
 
 import ms from "parse-ms";
+import fs from "fs";
 
 import Client from "../structs/client.js";
 import { SlashCommand } from "../structs/command.js";
+
+const toProperCase = (string: string) => {
+    return string.toLowerCase().replace(/(\b\w)/gi, match => match.toUpperCase());
+};
 
 export default async (client: Client, interaction: Interaction): Promise<void> => {
     if (interaction.isCommand()) {
@@ -61,6 +66,25 @@ export default async (client: Client, interaction: Interaction): Promise<void> =
             });
 
             interaction.channel?.delete();
+        } else if (/^help/.test(interaction.customID)) {
+            const {
+                config: { prefix }
+            } = client;
+
+            const category = interaction.customID.split("-")[1];
+            const categoryCommands = fs
+                .readdirSync(`./dist/src/commands/${category}`)
+                .map(command => command.split(".")[0]);
+
+            const cmdList = categoryCommands.join("`, `");
+
+            const categoryEmbed = new MessageEmbed()
+                .setTitle(`${toProperCase(category)} Commands:`)
+                .setDescription(`\`${cmdList}\``)
+                .setColor(client.config.themeColor)
+                .setThumbnail(interaction.guild?.iconURL({ dynamic: true }) as string)
+                .setFooter(`You can do ${prefix}help <command> to get info on a specific command!`);
+            interaction.update({ embeds: [categoryEmbed] });
         }
     }
 };

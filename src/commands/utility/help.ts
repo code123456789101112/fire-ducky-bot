@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import fs from "fs";
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageButtonStyleResolvable, MessageEmbed } from "discord.js";
 
 import Client from "../../structs/client.js";
 import Message from "../../structs/message.js";
@@ -34,7 +34,7 @@ export default new Command({
                 const cmdList = categoryCommands.join("`, `");
 
                 const categoryEmbed = new MessageEmbed()
-                    .setTitle(`${category} Commands:`)
+                    .setTitle(`${toProperCase(category)} Commands:`)
                     .setDescription(`\`${cmdList}\``)
                     .setColor(client.config.themeColor)
                     .setThumbnail(message.guild?.iconURL({ dynamic: true }) as string)
@@ -86,7 +86,7 @@ export default new Command({
                     new MessageEmbed()
                         .setTitle(`${client.config.serverName} Bot Help`)
                         .setDescription(
-                            `This is a Discord Bot used in ${client.config.serverName}! You can use \`${prefix}help <category>\` to see all the commands in a specific category. You can also use \`${prefix}help <command>\` to get info on a specific command!`
+                            `This is a Discord Bot used in ${client.config.serverName}! You can use \`${prefix}help <category>\` or press one of the buttons below to see all of the commands in a specific category. You can also use \`${prefix}help <command>\` to get info on a specific command!`
                         )
                         .addField("Categories:", "`economy`, `fun`, `utility`, and `moderation`")
                         .addField(
@@ -96,21 +96,53 @@ export default new Command({
                         .setColor(client.config.themeColor)
                         .setThumbnail(message.guild?.iconURL({ dynamic: true }) as string)
                 ];
-                message.channel.send({ embeds });
+
+                const buttons = [];
+                const buttonCategories = ["Economy", "Fun", "Utility", "Moderation"];
+
+                const styles = ["PRIMARY", "SECONDARY", "SUCCESS", "DANGER"];
+
+                for (const category of buttonCategories) {
+                    buttons.push(
+                        new MessageButton()
+                            .setCustomID(`help-${category.toLowerCase()}`)
+                            .setLabel(category)
+                            .setStyle(styles[Math.floor(Math.random() * styles.length)] as MessageButtonStyleResolvable)
+                    );
+                }
+
+                const components = [new MessageActionRow().addComponents(...buttons)];
+                message.channel.send({ embeds, components });
             }
         } else {
             const embeds = [
                 new MessageEmbed()
                     .setTitle(`${client.config.serverName} Bot Help`)
                     .setDescription(
-                        `This is a Discord Bot used in ${client.config.serverName}! You can use \`${prefix}help <category>\` to see all the commands in a specific category. You can also use \`${prefix}help <command>\` to get info on a specific command!`
+                        `This is a Discord Bot used in ${client.config.serverName}! You can use \`${prefix}help <category>\` or press one of the buttons below to see all of the commands in a specific category. You can also use \`${prefix}help <command>\` to get info on a specific command!`
                     )
                     .addField("Categories:", "`economy`, `fun`, `utility`, and `moderation`")
                     .addField("Website:", `[Visit the ${client.config.serverName} website!](${client.config.website})`)
                     .setColor(client.config.themeColor)
                     .setThumbnail(message.guild?.iconURL({ dynamic: true }) as string)
             ];
-            message.channel.send({ embeds });
+
+            const buttons = [];
+            const buttonCategories = ["Economy", "Fun", "Utility", "Moderation"];
+
+            const styles = ["PRIMARY", "SECONDARY", "SUCCESS", "DANGER"];
+
+            for (const category of buttonCategories) {
+                buttons.push(
+                    new MessageButton()
+                        .setCustomID(`help-${category.toLowerCase()}`)
+                        .setLabel(category)
+                        .setStyle(styles[Math.floor(Math.random() * styles.length)] as MessageButtonStyleResolvable)
+                );
+            }
+
+            const components = [new MessageActionRow().addComponents(...buttons)];
+            message.channel.send({ embeds, components });
         }
     }
 });
