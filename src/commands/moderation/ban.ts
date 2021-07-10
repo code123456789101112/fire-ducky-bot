@@ -11,7 +11,7 @@ export default new Command({
     usage: "@user reason",
     cooldown: 10,
     permissions: ["ADMINISTRATOR"],
-    aliases: ["bannish", "banish"],
+    aliases: ["bon", "banish"],
     execute(_client: Client, message: Message, args: string[]): unknown {
         if (!message.mentions.users.size) {
             return message.channel.send("You didn't say who to ban");
@@ -24,7 +24,7 @@ export default new Command({
 
         member.ban().catch((error: Error) => {
             console.error(error);
-            message.channel.send(`There was an error bannning ${member.user.username}`);
+            message.channel.send(`There was an error banning ${member.user.username}`);
         });
     }
 });
